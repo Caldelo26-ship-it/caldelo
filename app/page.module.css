@@ -6,8 +6,8 @@
 .navLinks a:hover { color: var(--navy); }
 .navCta { background: var(--navy) !important; color: var(--white) !important; padding: 0.5rem 1.25rem !important; border-radius: 8px; font-weight: 600 !important; }
 .navCta:hover { background: var(--teal) !important; }
-.hero { min-height: 100vh; padding: 120px 5% 80px; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #f0fafa 0%, #e8f7f6 40%, #f8fafc 100%); }
-.hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,184,169,0.25) 0%, transparent 70%); pointer-events: none; }
+.hero { min-height: 100vh; padding: 120px 5% 80px; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #e0f5f3 0%, #c8eeeb 30%, #f0fafa 60%, #fce8ed 100%); }
+.hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,184,169,0.45) 0%, transparent 65%); pointer-events: none; }
 .hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,107,138,0.12) 0%, transparent 70%); pointer-events: none; }
 .heroInner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; }
 .heroBadge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,200,83,0.1); color: #00a544; border: 1px solid rgba(0,200,83,0.25); padding: 0.35rem 0.85rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1.5rem; font-family: 'Plus Jakarta Sans', sans-serif; }
