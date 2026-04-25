@@ -36,7 +36,7 @@ export default function Home() {
           <li><a href="#categories">Savings</a></li>
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#start" className={styles.navCta}>Start saving</a></li>
+          <li><a href="/calculator" className={styles.navCta}>Start saving</a></li>
         </ul>
       </nav>
 
@@ -50,7 +50,7 @@ export default function Home() {
             <h1 className={styles.heroH1}>Stop overpaying.<br />Start <span className={styles.highlight}>saving more</span><br />on every bill.</h1>
             <p className={styles.heroP}>Caldelo finds you better deals on energy, EV charging, broadband and mobile — in 60 seconds. No jargon, no hassle.</p>
             <div className={styles.heroActions}>
-              <a href="#" className={styles.btnPrimary}>See my savings →</a>
+              <a href="/calculator" className={styles.btnPrimary}>See my savings →</a>
               <a href="#how-it-works" className={styles.btnSecondary}>How it works</a>
             </div>
           </div>
