@@ -1,0 +1,16 @@
+{
+  "name": "Caldelo — Save More on Every Bill",
+  "short_name": "Caldelo",
+  "description": "Find better deals on energy, EV charging, broadband and mobile for UK households.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0F2D5E",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["finance", "utilities"],
+  "lang": "en-GB"
+}
