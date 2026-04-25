@@ -1,0 +1,97 @@
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,250,252,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--navy); letter-spacing: -0.5px; }
+.logo span { color: var(--teal); }
+.navLinks { display: flex; gap: 2rem; list-style: none; }
+.navLinks a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+.navLinks a:hover { color: var(--navy); }
+.navCta { background: var(--navy) !important; color: var(--white) !important; padding: 0.5rem 1.25rem !important; border-radius: 8px; font-weight: 600 !important; }
+.navCta:hover { background: var(--teal) !important; }
+.hero { min-height: 100vh; padding: 120px 5% 80px; display: flex; align-items: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,184,169,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,107,138,0.08) 0%, transparent 70%); pointer-events: none; }
+.heroInner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; }
+.heroBadge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,200,83,0.1); color: #00a544; border: 1px solid rgba(0,200,83,0.25); padding: 0.35rem 0.85rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1.5rem; font-family: 'Plus Jakarta Sans', sans-serif; }
+.badgeDot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+.heroH1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; color: var(--navy); margin-bottom: 1.25rem; letter-spacing: -1.5px; }
+.highlight { color: var(--teal); }
+.heroP { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 480px; line-height: 1.7; }
+.heroActions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btnPrimary { background: var(--navy); color: var(--white); padding: 0.85rem 1.75rem; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+.btnPrimary:hover { background: var(--teal); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,184,169,0.3); }
+.btnSecondary { background: transparent; color: var(--navy); padding: 0.85rem 1.75rem; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 1rem; border: 2px solid var(--border); cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; }
+.btnSecondary:hover { border-color: var(--navy); transform: translateY(-1px); }
+.heroCard { background: var(--white); border-radius: 20px; padding: 2rem; box-shadow: 0 20px 60px rgba(15,45,94,0.12); border: 1px solid var(--border); }
+.heroCardHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.heroCardHeader h3 { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+.savingsBadge { background: rgba(0,200,83,0.1); color: #00a544; padding: 0.3rem 0.75rem; border-radius: 100px; font-size: 0.8rem; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; }
+.savingsAmount { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3.5rem; font-weight: 800; color: var(--navy); letter-spacing: -2px; line-height: 1; margin-bottom: 0.5rem; }
+.savingsLabel { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.savingsBreakdown { display: flex; flex-direction: column; gap: 0.75rem; }
+.breakdownItem { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-radius: 10px; background: var(--offwhite); }
+.breakdownLeft { display: flex; align-items: center; gap: 0.75rem; }
+.breakdownIcon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.breakdownName { font-weight: 600; font-size: 0.9rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--navy); }
+.breakdownSaving { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: #00a544; font-size: 0.95rem; }
+.trustBar { background: var(--navy); padding: 1.25rem 5%; display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+.trustItem { color: rgba(255,255,255,0.7); font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+.trustItem strong { color: var(--white); }
+.sectionInner { max-width: 1200px; margin: 0 auto; }
+.sectionLabel { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
+.sectionInner h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; color: var(--navy); letter-spacing: -1px; margin-bottom: 1rem; }
+.sectionSub { color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin-bottom: 3rem; }
+.howSection { background: var(--offwhite); padding: 80px 5%; }
+.stepsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.stepCard { background: var(--white); border-radius: 16px; padding: 2rem; border: 1px solid var(--border); transition: transform 0.2s, box-shadow 0.2s; }
+.stepCard:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(15,45,94,0.1); }
+.stepNumber { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--white); margin-bottom: 1.25rem; }
+.stepCard h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem; }
+.stepCard p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+.categoriesSection { padding: 80px 5%; background: var(--white); }
+.categoriesGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.categoryCard { background: var(--white); border-radius: 16px; padding: 1.75rem; border: 1px solid var(--border); transition: all 0.2s; display: block; }
+.categoryCard:hover { border-color: var(--teal); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,184,169,0.12); }
+.catIcon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+.categoryCard h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 0.35rem; }
+.categoryCard p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.75rem; }
+.catSaving { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #00a544; }
+.trustSection { background: var(--navy); padding: 80px 5%; text-align: center; }
+.trustInner { max-width: 1200px; margin: 0 auto; }
+.trustStats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.trustStat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem; }
+.statNumber { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--teal); letter-spacing: -1px; margin-bottom: 0.25rem; }
+.statLabel { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+.reviewsSection { padding: 80px 5%; background: var(--offwhite); }
+.reviewsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.reviewCard { background: var(--white); border-radius: 16px; padding: 1.75rem; border: 1px solid var(--border); }
+.stars { color: #f59e0b; font-size: 1rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+.reviewText { color: var(--text); font-size: 0.92rem; line-height: 1.65; margin-bottom: 1rem; font-style: italic; }
+.reviewer { display: flex; align-items: center; gap: 0.75rem; }
+.reviewerAvatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--white); }
+.reviewerName { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--navy); }
+.reviewerLoc { font-size: 0.8rem; color: var(--text-muted); }
+.faqSection { padding: 80px 5%; background: var(--white); }
+.faqInner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.faqList { display: flex; flex-direction: column; gap: 1rem; }
+.faqItem { background: var(--offwhite); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+.faqQ { padding: 1.25rem 1.5rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; color: var(--navy); font-size: 0.95rem; }
+.faqA { padding: 0 1.5rem 1.25rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.65; }
+.finalCta { padding: 80px 5%; background: linear-gradient(135deg, var(--navy) 0%, #0a4080 100%); text-align: center; position: relative; overflow: hidden; }
+.finalCta::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,184,169,0.2) 0%, transparent 70%); pointer-events: none; }
+.finalCta h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: var(--white); letter-spacing: -1px; margin-bottom: 1rem; position: relative; }
+.finalCta p { color: rgba(255,255,255,0.65); font-size: 1.05rem; margin-bottom: 2rem; position: relative; }
+.footer { background: #0a1a33; padding: 3rem 5% 2rem; color: rgba(255,255,255,0.5); }
+.footerInner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footerLogo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--white); }
+.footerLogo span { color: var(--teal); }
+.footerLinks { display: flex; gap: 1.5rem; list-style: none; }
+.footerLinks a { color: rgba(255,255,255,0.4); font-size: 0.85rem; transition: color 0.2s; }
+.footerLinks a:hover { color: var(--white); }
+.footerCopy { font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; max-width: 1200px; margin: 1.5rem auto 0; }
+@media (max-width: 768px) {
+  .heroInner { grid-template-columns: 1fr; }
+  .heroCard { display: none; }
+  .stepsGrid, .trustStats, .reviewsGrid { grid-template-columns: 1fr; }
+  .categoriesGrid { grid-template-columns: 1fr; }
+  .faqInner { grid-template-columns: 1fr; }
+  .navLinks { display: none; }
+}
