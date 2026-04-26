@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import CookieBanner from './components/CookieBanner'
+import GoogleAnalytics from './components/GoogleAnalytics'
 
 export const metadata: Metadata = {
   title: 'Caldelo — Save More on Every Bill',
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body>
         {children}
         <CookieBanner />
+        <GoogleAnalytics />
       </body>
     </html>
   )
