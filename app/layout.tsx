@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import CookieBanner from './components/CookieBanner'
 
 export const metadata: Metadata = {
   title: 'Caldelo — Save More on Every Bill',
@@ -29,7 +30,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="Caldelo" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <CookieBanner />
+      </body>
     </html>
   )
 }

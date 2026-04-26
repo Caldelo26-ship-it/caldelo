@@ -1,0 +1,93 @@
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: var(--navy);
+  border-top: 3px solid var(--teal);
+  padding: 1.25rem 1.5rem;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.text {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.text strong {
+  display: block;
+  color: #fff;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.text p {
+  margin: 0;
+}
+
+.link {
+  color: var(--teal);
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.accept,
+.reject {
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--teal);
+  font-family: inherit;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.accept {
+  background: var(--teal);
+  color: #fff;
+}
+
+.reject {
+  background: transparent;
+  color: var(--teal);
+}
+
+.accept:hover,
+.reject:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .accept,
+  .reject {
+    flex: 1;
+    text-align: center;
+  }
+}
