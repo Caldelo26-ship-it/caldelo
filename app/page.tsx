@@ -1,10 +1,10 @@
 import styles from './page.module.css'
 
 const categories = [
-  { icon: '⚡', name: 'Energy', desc: 'Gas & electricity tariffs from all major UK suppliers compared in real time.', saving: 'Save up to £480/yr', bg: 'rgba(0,184,169,0.1)' },
-  { icon: '🔌', name: 'EV Charging', desc: 'Home charger tariffs and public network costs — find the cheapest way to charge.', saving: 'Save up to £320/yr', bg: 'rgba(255,107,138,0.1)' },
-  { icon: '📡', name: 'Broadband', desc: 'Full-fibre, cable and standard broadband deals matched to your postcode.', saving: 'Save up to £240/yr', bg: 'rgba(0,200,83,0.1)' },
-  { icon: '📱', name: 'Mobile & TV', desc: 'SIM-only deals, TV packages and bundles that beat your current contract.', saving: 'Save up to £180/yr', bg: 'rgba(255,107,138,0.1)' },
+  { icon: '⚡', name: 'Energy Bills', desc: 'Gas & electricity tariffs from all major UK suppliers compared in real time.', saving: 'Save up to £480/yr', bg: 'rgba(0,184,169,0.1)', href: '/energy' },
+  { icon: '🔌', name: 'EV Charging', desc: 'Home charger tariffs and public network costs — find the cheapest way to charge.', saving: 'Save up to £320/yr', bg: 'rgba(255,107,138,0.1)', href: '/ev-charging' },
+  { icon: '☀️', name: 'Solar Savings', desc: 'Solar panel installation quotes and deals from approved UK installers.', saving: 'Save up to £1,200/yr', bg: 'rgba(0,200,83,0.1)', href: '/solar' },
+  { icon: '🔋', name: 'Battery Storage', desc: 'Battery storage deals to maximise your solar savings. More deals coming soon.', saving: 'Coming soon', bg: 'rgba(255,107,138,0.1)', href: '#' },
 ]
 const steps = [
   { number: '1', color: 'var(--navy)', title: 'Tell us about your home', desc: 'Answer a few quick questions — takes under 60 seconds and we never share your data.' },
@@ -57,19 +57,22 @@ export default function Home() {
             <div className={styles.savingsLabel}>estimated annual savings for your home</div>
             <div className={styles.savingsBreakdown}>
               {[
-                { icon: '⚡', name: 'Energy', saving: '£480/yr', bg: 'rgba(0,184,169,0.1)' },
-                { icon: '🔌', name: 'EV Charging', saving: '£320/yr', bg: 'rgba(255,107,138,0.1)' },
-                { icon: '📡', name: 'Broadband', saving: '£240/yr', bg: 'rgba(0,200,83,0.1)' },
-                { icon: '📱', name: 'Mobile & TV', saving: '£180/yr', bg: 'rgba(255,107,138,0.1)' },
-              ].map((item) => (
-                <div key={item.name} className={styles.breakdownItem}>
-                  <div className={styles.breakdownLeft}>
-                    <div className={styles.breakdownIcon} style={{ background: item.bg }}>{item.icon}</div>
-                    <span className={styles.breakdownName}>{item.name}</span>
-                  </div>
-                  <span className={styles.breakdownSaving}>{item.saving}</span>
-                </div>
-              ))}
+                { icon: '⚡', name: 'Energy', saving: '£480/yr', bg: 'rgba(0,184,169,0.1)', href: '/energy' },
+                { icon: '🔌', name: 'EV Charging', saving: '£320/yr', bg: 'rgba(255,107,138,0.1)', href: null },
+                { icon: '☀️', name: 'Solar', saving: '£1,200/yr', bg: 'rgba(0,200,83,0.1)', href: null },
+                { icon: '🔋', name: 'Battery Storage', saving: 'Coming soon', bg: 'rgba(255,107,138,0.1)', href: null },
+              ].map((item) => {
+                const Tag = item.href ? 'a' : 'div'
+                return (
+                  <Tag key={item.name} {...(item.href ? { href: item.href } : {})} className={styles.breakdownItem}>
+                    <div className={styles.breakdownLeft}>
+                      <div className={styles.breakdownIcon} style={{ background: item.bg }}>{item.icon}</div>
+                      <span className={styles.breakdownName}>{item.name}</span>
+                    </div>
+                    <span className={styles.breakdownSaving}>{item.saving}</span>
+                  </Tag>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -106,7 +109,7 @@ export default function Home() {
           <p className={styles.sectionSub}>From energy to mobile — Caldelo covers all the bills that hit hardest.</p>
           <div className={styles.categoriesGrid}>
             {categories.map((cat) => (
-              <a key={cat.name} href="/calculator" className={styles.categoryCard}>
+              <a key={cat.name} href={cat.href} className={styles.categoryCard}>
                 <div className={styles.catIcon} style={{ background: cat.bg }}>{cat.icon}</div>
                 <h3>{cat.name}</h3>
                 <p>{cat.desc}</p>
