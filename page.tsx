@@ -112,7 +112,7 @@ export default function Home() {
           <p className={styles.sectionSub}>From energy to mobile — Caldelo covers all the bills that hit hardest.</p>
           <div className={styles.categoriesGrid}>
             {categories.map((cat) => (
-              <a key={cat.name} href="#" className={styles.categoryCard}>
+              <a key={cat.name} href="/calculator" className={styles.categoryCard}>
                 <div className={styles.catIcon} style={{ background: cat.bg }}>{cat.icon}</div>
                 <h3>{cat.name}</h3>
                 <p>{cat.desc}</p>
@@ -187,7 +187,7 @@ export default function Home() {
       <section className={styles.finalCta}>
         <h2>Ready to stop overpaying?</h2>
         <p>Join thousands of UK households saving money with Caldelo — it only takes 60 seconds.</p>
-        <a href="#" className={styles.btnPrimary} style={{ background: 'var(--teal)', fontSize: '1.05rem', padding: '1rem 2rem' }}>
+        <a href="/calculator" className={styles.btnPrimary} style={{ background: 'var(--teal)', fontSize: '1.05rem', padding: '1rem 2rem' }}>
           Start saving today →
         </a>
       </section>
