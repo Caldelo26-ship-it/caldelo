@@ -32,7 +32,7 @@ export default function Home() {
       <section className={styles.hero} id="start">
         <div className={styles.heroInner}>
           <div>
-            <div className={styles.heroBadge}><span className={styles.badgeDot} />UK households save avg. £847/yr</div>
+            <div className={styles.heroBadge}>Energy + EV savings guidance for UK households</div>
             <h1 className={styles.heroH1}>Stop overpaying.<br />Start <span className={styles.highlight}>saving more</span><br />on every bill.</h1>
             <p className={styles.heroP}>Caldelo finds you better deals on energy and EV charging — in 60 seconds. No jargon, no hassle.</p>
             <div className={styles.heroActions}>
@@ -118,7 +118,7 @@ export default function Home() {
           <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '3rem' }}>We are on your side — not the providers.</p>
           <div className={styles.trustStats}>
             {[
-              { number: '£847', label: 'Average annual saving per household' },
+              { number: 'Free', label: 'No cost to compare — ever' },
               { number: '200+', label: 'Tariffs and providers compared' },
               { number: '60s', label: 'Average time to find your best deal' },
             ].map((stat) => (
