@@ -1,13 +1,14 @@
 'use client'
 
+import type { CSSProperties, ReactNode } from 'react'
 import { trackEvent } from '../lib/analytics'
 
 interface Props {
   href: string
   className?: string
-  style?: React.CSSProperties
+  style?: CSSProperties
   buttonText: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export default function TrackedLink({ href, className, style, buttonText, children }: Props) {

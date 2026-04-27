@@ -7,19 +7,23 @@ export default function CookieBanner() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (!localStorage.getItem('caldelo_cookie_consent')) {
+    try {
+      if (!localStorage.getItem('caldelo_cookie_consent')) {
+        setVisible(true)
+      }
+    } catch {
       setVisible(true)
     }
   }, [])
 
   function accept() {
-    localStorage.setItem('caldelo_cookie_consent', 'accepted')
+    try { localStorage.setItem('caldelo_cookie_consent', 'accepted') } catch {}
     window.dispatchEvent(new CustomEvent('caldelo_consent', { detail: 'accepted' }))
     setVisible(false)
   }
 
   function reject() {
-    localStorage.setItem('caldelo_cookie_consent', 'rejected')
+    try { localStorage.setItem('caldelo_cookie_consent', 'rejected') } catch {}
     setVisible(false)
   }
 

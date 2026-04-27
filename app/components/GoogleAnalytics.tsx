@@ -9,10 +9,11 @@ export default function GoogleAnalytics() {
   const [consented, setConsented] = useState(false)
 
   useEffect(() => {
-    // Load GA immediately if user already accepted on a prior visit
-    if (localStorage.getItem('caldelo_cookie_consent') === 'accepted') {
-      setConsented(true)
-    }
+    try {
+      if (localStorage.getItem('caldelo_cookie_consent') === 'accepted') {
+        setConsented(true)
+      }
+    } catch {}
 
     // Load GA when user accepts during this session
     function onConsent(e: Event) {
