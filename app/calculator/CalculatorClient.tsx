@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './calculator.module.css'
+import { trackEvent, getBillBand, getSavingBand } from '../lib/analytics'
 
 // Based on Ofgem Q2 2026 price cap data
 // Average UK dual-fuel bill: £1,641/year (£136.75/month)
@@ -27,6 +28,18 @@ export default function CalculatorClient() {
   const saving = bill ? calcSaving(parseFloat(bill)) : 0
   const annual = bill ? Math.round(parseFloat(bill) * 12) : 0
 
+  useEffect(() => {
+    trackEvent('calculator_page_view', { page_path: window.location.pathname })
+  }, [])
+
+  useEffect(() => {
+    if (step === 'result') {
+      trackEvent('results_page_view', {
+        estimated_saving_band: getSavingBand(saving),
+      })
+    }
+  }, [step, saving])
+
   function handleCalculate() {
     const val = parseFloat(bill)
     if (!bill || isNaN(val) || val < 1) {
@@ -38,6 +51,10 @@ export default function CalculatorClient() {
       return
     }
     setError('')
+    trackEvent('calculator_submit', {
+      page_path: window.location.pathname,
+      entered_bill_band: getBillBand(val),
+    })
     setStep('result')
   }
 
@@ -130,7 +147,15 @@ export default function CalculatorClient() {
             </div>
           </div>
 
-          <a href="/energy" className={styles.btnPrimary}>
+          <a
+            href="/energy"
+            className={styles.btnPrimary}
+            onClick={() => trackEvent('results_cta_click', {
+              button_text: 'See Cheaper Energy Deals',
+              link_destination: '/energy',
+              page_path: window.location.pathname,
+            })}
+          >
             See Cheaper Energy Deals →
           </a>
 

@@ -1,4 +1,5 @@
 import styles from './page.module.css'
+import TrackedLink from './components/TrackedLink'
 
 const categories = [
   { icon: '⚡', name: 'Energy Bills', desc: 'Gas & electricity tariffs from all major UK suppliers compared in real time.', saving: 'Save up to £480/yr', bg: 'rgba(0,184,169,0.1)', href: '/energy' },
@@ -25,7 +26,7 @@ export default function Home() {
           <li><a href="#how-it-works">How it works</a></li>
           <li><a href="#categories">Savings</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="/calculator" className={styles.navCta}>Start saving</a></li>
+          <li><TrackedLink href="/calculator" className={styles.navCta} buttonText="Start saving">Start saving</TrackedLink></li>
         </ul>
       </nav>
 
@@ -36,7 +37,7 @@ export default function Home() {
             <h1 className={styles.heroH1}>Check if you're overpaying<br />for <span className={styles.highlight}>energy bills</span></h1>
             <p className={styles.heroP}>Get a free 60-second estimate based on your current monthly bill.</p>
             <div className={styles.heroActions}>
-              <a href="/calculator" className={styles.btnPrimary}>Check My Savings →</a>
+              <TrackedLink href="/calculator" className={styles.btnPrimary} buttonText="Check My Savings">Check My Savings →</TrackedLink>
               <a href="#how-it-works" className={styles.btnSecondary}>How it works</a>
             </div>
           </div>
@@ -152,7 +153,7 @@ export default function Home() {
       <section className={styles.finalCta}>
         <h2>Ready to stop overpaying?</h2>
         <p>Join thousands of UK households saving money with Caldelo — it only takes 60 seconds.</p>
-        <a href="/calculator" className={styles.btnPrimary} style={{ background: 'var(--teal)', fontSize: '1.05rem', padding: '1rem 2rem' }}>Check My Savings →</a>
+        <TrackedLink href="/calculator" className={styles.btnPrimary} style={{ background: 'var(--teal)', fontSize: '1.05rem', padding: '1rem 2rem' }} buttonText="Check My Savings">Check My Savings →</TrackedLink>
       </section>
 
       <footer className={styles.footer}>
