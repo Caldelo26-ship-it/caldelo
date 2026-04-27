@@ -32,6 +32,7 @@
 .breakdownIcon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
 .breakdownName { font-weight: 600; font-size: 0.9rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--navy); }
 .breakdownSaving { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: #00a544; font-size: 0.95rem; }
+.savingsDisclaimer { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; line-height: 1.5; }
 .trustBar { background: var(--navy); padding: 1.25rem 5%; display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
 .trustItem { color: rgba(255,255,255,0.7); font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
 .trustItem strong { color: var(--white); }
