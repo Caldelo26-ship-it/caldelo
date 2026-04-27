@@ -32,7 +32,7 @@ export default function Home() {
       <section className={styles.hero} id="start">
         <div className={styles.heroInner}>
           <div>
-            <div className={styles.heroBadge}>Energy + EV savings guidance for UK households</div>
+            <div className={styles.heroBadge}>Free 60-second savings check</div>
             <h1 className={styles.heroH1}>Stop overpaying.<br />Start <span className={styles.highlight}>saving more</span><br />on every bill.</h1>
             <p className={styles.heroP}>Caldelo finds you better deals on energy and EV charging — in 60 seconds. No jargon, no hassle.</p>
             <div className={styles.heroActions}>
