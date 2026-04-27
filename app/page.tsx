@@ -33,8 +33,8 @@ export default function Home() {
         <div className={styles.heroInner}>
           <div>
             <div className={styles.heroBadge}>Free 60-second savings check</div>
-            <h1 className={styles.heroH1}>Stop overpaying.<br />Start <span className={styles.highlight}>saving more</span><br />on every bill.</h1>
-            <p className={styles.heroP}>Caldelo finds you better deals on energy and EV charging — in 60 seconds. No jargon, no hassle.</p>
+            <h1 className={styles.heroH1}>Check if you're overpaying<br />for <span className={styles.highlight}>energy bills</span></h1>
+            <p className={styles.heroP}>Get a free 60-second estimate based on your current monthly bill.</p>
             <div className={styles.heroActions}>
               <a href="/calculator" className={styles.btnPrimary}>Check My Savings →</a>
               <a href="#how-it-works" className={styles.btnSecondary}>How it works</a>

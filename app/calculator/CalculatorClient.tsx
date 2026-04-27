@@ -67,7 +67,7 @@ export default function CalculatorClient() {
         <div className={styles.card}>
           <div className={styles.stepBadge}>⚡ Energy savings</div>
           <h1 className={styles.title}>How much is your monthly energy bill?</h1>
-          <p className={styles.sub}>Enter what you currently pay by Direct Debit each month. We&apos;ll show you how much you could save instantly.</p>
+          <p className={styles.sub}>Enter your monthly Direct Debit amount to see your estimated annual saving instantly.</p>
 
           <div className={styles.inputWrap}>
             <span className={styles.pound}>£</span>
@@ -87,18 +87,18 @@ export default function CalculatorClient() {
           {error && <p className={styles.error}>{error}</p>}
 
           <button className={styles.btnPrimary} onClick={handleCalculate}>
-            Calculate my savings →
+            Calculate My Savings →
           </button>
+
+          <div className={styles.trustRow}>
+            <span>✓ Free estimate</span>
+            <span>✓ No email required</span>
+            <span>✓ Based on UK market data</span>
+          </div>
 
           <p className={styles.hint}>
             Not sure? The UK average is <strong>£137/month</strong> based on Ofgem Q2 2026 data.
           </p>
-
-          <div className={styles.trustRow}>
-            <span>🔒 No credit check</span>
-            <span>✓ Free to use</span>
-            <span>⚡ Instant result</span>
-          </div>
         </div>
       )}
 
@@ -112,6 +112,8 @@ export default function CalculatorClient() {
             <div className={styles.savingAmount}>£{saving}</div>
             <div className={styles.savingText}>estimated annual saving on energy</div>
           </div>
+
+          <p className={styles.disclaimer}>Estimate based on your monthly bill and current UK market averages. Actual savings may vary.</p>
 
           <div className={styles.breakdown}>
             <div className={styles.breakdownRow}>
@@ -129,12 +131,8 @@ export default function CalculatorClient() {
           </div>
 
           <a href="/energy" className={styles.btnPrimary}>
-            Show me energy deals →
+            See Cheaper Energy Deals →
           </a>
-
-          <p className={styles.disclaimer}>
-            Estimates based on Ofgem Q2 2026 price cap data. Savings assume switching to a competitive fixed tariff. Actual savings may vary.
-          </p>
 
           <div className={styles.divider}>
             <span>What about your other bills?</span>
