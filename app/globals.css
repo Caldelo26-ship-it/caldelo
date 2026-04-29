@@ -2,15 +2,15 @@
 
 @theme {
   /* Colours */
-  --color-caldelo-white:     #FAFAF8;
-  --color-caldelo-surface:   #F2F1EE;
-  --color-caldelo-border:    #E5E3DC;
-  --color-caldelo-ink:       #1A1917;
-  --color-caldelo-secondary: #6B6B64;
-  --color-caldelo-muted:     #B0ACA6;
-  --color-caldelo-green:     #6B8F71;
-  --color-caldelo-blue:      #5C7A9E;
-  --color-caldelo-coral:     #C27B6A;
+  --color-caldelo-white:     #fafaf8;
+  --color-caldelo-surface:   #f2f1ee;
+  --color-caldelo-border:    #e5e3dc;
+  --color-caldelo-ink:       #1a1917;
+  --color-caldelo-secondary: #6b6b64;
+  --color-caldelo-muted:     #b0aca6;
+  --color-caldelo-green:     #6b8f71;
+  --color-caldelo-blue:      #5c7a9e;
+  --color-caldelo-coral:     #c27b6a;
 
   /* Typography */
   --font-display: "Fraunces", Georgia, serif;
@@ -22,4 +22,19 @@
   --radius-pill:         9999px;
   --radius-phone:        22px;
   --radius-phone-inner:  16px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
