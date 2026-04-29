@@ -20,7 +20,12 @@ export function WaitlistForm({ variant = 'hero' }: WaitlistFormProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-      setStatus(res.ok ? 'success' : 'error')
+      if (res.ok) {
+        setEmail('')
+        setStatus('success')
+      } else {
+        setStatus('error')
+      }
     } catch {
       setStatus('error')
     }
@@ -55,6 +60,7 @@ export function WaitlistForm({ variant = 'hero' }: WaitlistFormProps) {
         <button
           type="submit"
           disabled={status === 'loading'}
+          aria-busy={status === 'loading'}
           className={
             isHero
               ? 'h-11 px-5 rounded-input bg-caldelo-green text-white text-sm font-semibold whitespace-nowrap hover:opacity-90 transition-opacity disabled:opacity-60'
