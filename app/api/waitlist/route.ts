@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
   const { error } = await supabase
     .from('waitlist')
-    .insert({ email })
+    .insert({ email, source: 'homepage' })
 
   if (error) {
     if (error.code === '23505') {

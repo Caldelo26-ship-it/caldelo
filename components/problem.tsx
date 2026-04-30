@@ -6,17 +6,17 @@ const quotes = [
 
 export function Problem() {
   return (
-    <section className="bg-caldelo-surface border-t border-caldelo-border py-14 px-5">
+    <section className="bg-caldelo-surface border-t border-caldelo-border py-20 px-5 md:py-28">
       <div className="max-w-5xl mx-auto">
-        <p className="text-[10px] font-bold tracking-widest uppercase text-caldelo-muted mb-6">
+        <p className="text-[10px] font-bold tracking-widest uppercase text-caldelo-muted mb-8">
           Sound familiar?
         </p>
 
-        <div className="space-y-3 mb-8">
+        <div className="space-y-4 mb-10">
           {quotes.map((quote) => (
             <blockquote
               key={quote}
-              className="bg-caldelo-white rounded-card px-5 py-4 text-sm text-caldelo-ink italic border-l-[3px] border-caldelo-border"
+              className="bg-caldelo-white rounded-card px-6 py-5 text-sm text-caldelo-ink italic border-l-[3px] border-caldelo-green shadow-sm"
             >
               &ldquo;{quote}&rdquo;
             </blockquote>

@@ -2,19 +2,19 @@
 
 @theme {
   /* Colours */
-  --color-caldelo-white:     #fafaf8;
+  --color-caldelo-white:     #f7f5f0;
   --color-caldelo-surface:   #f2f1ee;
   --color-caldelo-border:    #e5e3dc;
   --color-caldelo-ink:       #1a1917;
   --color-caldelo-secondary: #6b6b64;
   --color-caldelo-muted:     #b0aca6;
-  --color-caldelo-green:     #6b8f71;
+  --color-caldelo-green:     #4a7c59;
   --color-caldelo-blue:      #5c7a9e;
   --color-caldelo-coral:     #c27b6a;
 
   /* Typography */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans:    "DM Sans", system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans:    var(--font-dm-sans), system-ui, sans-serif;
 
   /* Border radii */
   --radius-card:         14px;

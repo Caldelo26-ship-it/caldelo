@@ -7,7 +7,7 @@ export function Nav() {
         </span>
         <a
           href="#waitlist"
-          className="h-9 px-5 rounded-pill bg-caldelo-green text-white text-sm font-semibold flex items-center hover:opacity-90 transition-opacity"
+          className="h-10 px-6 rounded-pill bg-caldelo-green text-white text-sm font-semibold flex items-center hover:opacity-90 transition-opacity"
         >
           Join waitlist
         </a>
