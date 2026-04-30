@@ -1,4 +1,4 @@
-import { PhoneShell } from './phone-shell'
+import { PhoneFrame } from './phone-frame'
 import { TodayViewMockup } from './today-view-mockup'
 import { LoadBalanceMockup } from './load-balance-mockup'
 import { RemindersMockup } from './reminders-mockup'
@@ -20,6 +20,7 @@ const features = [
       </svg>
     ),
     phone: <TodayViewMockup />,
+    rotation: 'rotate(-2deg)',
   },
   {
     label: 'Load Balance',
@@ -34,6 +35,7 @@ const features = [
       </svg>
     ),
     phone: <LoadBalanceMockup />,
+    rotation: 'rotate(2deg)',
   },
   {
     label: 'Smart Reminders',
@@ -47,6 +49,7 @@ const features = [
       </svg>
     ),
     phone: <RemindersMockup />,
+    rotation: 'rotate(-2deg)',
   },
   {
     label: 'Shared Lists',
@@ -64,6 +67,7 @@ const features = [
       </svg>
     ),
     phone: <SharedListsMockup />,
+    rotation: 'rotate(2deg)',
   },
 ]
 
@@ -81,18 +85,18 @@ export function Features() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map(({ label, description, accentClass, icon, phone }) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+          {features.map(({ label, description, accentClass, icon, phone, rotation }) => (
             <div key={label} className="flex flex-col">
               <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-4 flex-shrink-0 ${accentClass}`}>
                 {icon}
               </div>
               <h3 className="font-display text-lg font-bold text-caldelo-ink mb-2">{label}</h3>
-              <p className="text-caldelo-secondary text-sm leading-relaxed mb-6 flex-1">{description}</p>
+              <p className="text-caldelo-secondary text-sm leading-relaxed mb-8 flex-1">{description}</p>
               <div className="flex justify-center">
-                <PhoneShell className="w-[140px]">
+                <PhoneFrame style={{ transform: rotation }}>
                   {phone}
-                </PhoneShell>
+                </PhoneFrame>
               </div>
             </div>
           ))}

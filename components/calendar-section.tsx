@@ -1,4 +1,4 @@
-import { PhoneShell } from './phone-shell'
+import { PhoneFrame } from './phone-frame'
 import { CalendarMockup } from './calendar-mockup'
 
 const features = [
@@ -58,11 +58,11 @@ export function CalendarSection() {
           </a>
         </div>
 
-        {/* Right: calendar mockup in phone */}
+        {/* Right: calendar mockup */}
         <div className="flex justify-center flex-shrink-0">
-          <PhoneShell className="w-[220px]">
+          <PhoneFrame style={{ transform: 'rotate(-2deg)' }}>
             <CalendarMockup />
-          </PhoneShell>
+          </PhoneFrame>
         </div>
 
       </div>

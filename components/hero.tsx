@@ -1,5 +1,5 @@
 import { WaitlistForm } from './waitlist-form'
-import { PhoneShell } from './phone-shell'
+import { PhoneFrame } from './phone-frame'
 import { TodayViewMockup } from './today-view-mockup'
 
 export function Hero() {
@@ -38,22 +38,22 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Mobile: plain phone */}
-        <div className="flex justify-center md:hidden flex-shrink-0">
-          <PhoneShell className="w-[180px]">
+        {/* Mobile: phone, no rotation */}
+        <div className="flex justify-center md:hidden">
+          <PhoneFrame>
             <TodayViewMockup />
-          </PhoneShell>
+          </PhoneFrame>
         </div>
 
         {/* Desktop: phone + 4 floating annotations */}
         <div className="hidden md:flex flex-shrink-0 items-center justify-center">
-          <div className="relative w-[420px] h-[480px]">
+          <div className="relative" style={{ width: 420, height: 560 }}>
 
-            {/* Phone centred */}
+            {/* Phone centred, rotated 3deg */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-              <PhoneShell className="w-[200px] -rotate-1">
+              <PhoneFrame style={{ transform: 'rotate(3deg)' }}>
                 <TodayViewMockup />
-              </PhoneShell>
+              </PhoneFrame>
             </div>
 
             {/* Upper-left annotation */}
