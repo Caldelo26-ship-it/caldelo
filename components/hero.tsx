@@ -10,16 +10,20 @@ export function Hero() {
         {/* Left: copy */}
         <div className="flex-1 min-w-0">
           <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-caldelo-green bg-caldelo-green/10 rounded-full px-3 py-1 mb-6">
-            New: Calendar + Tasks + Shared Clarity
+            Shared family calendar — early access
           </span>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-caldelo-ink leading-tight mb-6">
-            The family calendar that keeps everyone in sync.
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-caldelo-ink leading-tight mb-5">
+            Run family life like a team.
           </h1>
+          <p className="text-caldelo-secondary text-base md:text-lg leading-relaxed mb-8 max-w-md">
+            Know what&apos;s happening this week, who&apos;s doing what, and what needs attention.
+            All in one place.
+          </p>
           <ul className="space-y-2 mb-8">
             {[
-              'Join early families',
-              'Free at launch',
-              'No spam ever',
+              'Free shared family calendar',
+              'Smart reminders at the right moment',
+              'See who is carrying the week',
             ].map((item) => (
               <li key={item} className="flex items-center gap-2.5 text-sm text-caldelo-secondary">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 text-caldelo-green">
@@ -34,11 +38,11 @@ export function Hero() {
             <WaitlistForm variant="hero" />
           </div>
           <p className="text-[11px] text-caldelo-muted">
-            Joining the waitlist is free. No credit card. No commitment.
+            Join 300+ families getting ready for launch. Free. No spam. Ever.
           </p>
         </div>
 
-        {/* Mobile: phone, no rotation */}
+        {/* Mobile: phone */}
         <div className="flex justify-center md:hidden">
           <PhoneFrame>
             <TodayViewMockup />

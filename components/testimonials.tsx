@@ -61,7 +61,7 @@ export function Testimonials() {
             </div>
             <span className="text-sm font-semibold text-caldelo-ink">4.9/5</span>
           </div>
-          <p className="text-sm text-caldelo-muted mb-8">From 120+ early families</p>
+          <p className="text-sm text-caldelo-muted mb-8">From 300+ early families</p>
 
           <a href="#waitlist"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-caldelo-green hover:opacity-80 transition-opacity">

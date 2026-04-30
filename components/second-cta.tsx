@@ -10,14 +10,14 @@ export function SecondCta() {
         }}
       />
       <div className="relative max-w-md mx-auto text-center">
-        <p className="text-[10px] font-bold tracking-widest uppercase text-white/50 mb-4">
-          Early access
+        <p className="text-[10px] font-bold tracking-widest uppercase text-white/40 mb-4">
+          Launching soon · Built with working parents
         </p>
         <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
           Be first when we launch.
         </h2>
         <p className="text-white/60 text-sm mb-8">
-          Join the waitlist. Free. No spam. Ever.
+          Join 300+ families already on the list. Free. No spam. Ever.
         </p>
         <WaitlistForm variant="cta" />
       </div>
