@@ -59,7 +59,14 @@ export default function Step6Ownership({ data, onNext, onBack }: StepProps) {
       if (selectedItems.length > 0 && data.householdId) {
         const {
           data: { user },
+          error: authError,
         } = await supabase.auth.getUser()
+
+        if (authError || !user) {
+          setError('Session expired. Please sign in again.')
+          setLoading(false)
+          return
+        }
 
         const rows = selectedItems.map(item => ({
           household_id: data.householdId,

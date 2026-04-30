@@ -43,7 +43,7 @@ const initialData: OnboardingData = {
 function Wordmark() {
   return (
     <div className="flex items-center gap-2.5 mb-8">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-caldelo-green">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-caldelo-green" aria-hidden="true">
         <path d="M12 22V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
         <path d="M12 11C12 6 16 2 21 2C21 7 17 11 12 11Z" fill="currentColor" fillOpacity="0.35" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
         <path d="M12 11C12 6 8 2 3 2C3 7 7 11 12 11Z" fill="currentColor" fillOpacity="0.55" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>

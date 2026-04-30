@@ -64,8 +64,7 @@ export default function Step7Done({ data }: StepProps) {
 
       <button
         onClick={() => router.push('/today')}
-        className="w-full h-[56px] rounded-pill text-white text-base font-semibold hover:opacity-90 transition-opacity mt-8"
-        style={{ backgroundColor: '#4A7C59' }}
+        className="w-full h-[56px] rounded-pill bg-caldelo-green text-white text-base font-semibold hover:opacity-90 transition-opacity mt-8"
       >
         See this week →
       </button>
