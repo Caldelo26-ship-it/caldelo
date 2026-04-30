@@ -22,7 +22,7 @@ export function Nav() {
           <a href="#faq"          className="text-sm text-caldelo-secondary hover:text-caldelo-ink transition-colors">FAQs</a>
         </div>
 
-        <a href="#waitlist"
+        <a href="/signin"
           className="h-11 px-6 rounded-pill bg-caldelo-green text-white text-sm font-semibold flex items-center hover:opacity-90 transition-opacity flex-shrink-0">
           Get early access
         </a>

@@ -42,11 +42,22 @@ export function Hero() {
             ))}
           </ul>
 
-          <WaitlistForm variant="hero" />
+          {/* Primary CTA */}
+          <a
+            href="/signin"
+            className="inline-flex items-center justify-center h-12 px-8 rounded-pill bg-caldelo-green text-white text-sm font-semibold hover:opacity-90 transition-opacity mb-6"
+          >
+            Get early access
+          </a>
 
-          <p className="text-[12px] text-caldelo-muted mt-4">
-            Join 300+ families getting ready for launch. Free. No spam. Ever.
-          </p>
+          {/* Secondary: waitlist email capture */}
+          <div className="border-t border-caldelo-border pt-6">
+            <p className="text-[12px] text-caldelo-muted mb-3">Or join the waitlist for launch updates:</p>
+            <WaitlistForm variant="hero" />
+            <p className="text-[12px] text-caldelo-muted mt-3">
+              Join 300+ families getting ready for launch. Free. No spam. Ever.
+            </p>
+          </div>
         </div>
 
         {/* Mobile: phone */}
