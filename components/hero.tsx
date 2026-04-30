@@ -22,14 +22,24 @@ export function Hero() {
             <WaitlistForm variant="hero" />
           </div>
           <p className="text-[11px] text-caldelo-muted">
-            Join early families on the list &middot; Free &middot; No spam
+            Joining the waitlist is free. No credit card. No commitment.
           </p>
         </div>
 
         <div className="flex justify-center md:justify-end flex-shrink-0">
-          <PhoneShell className="w-[180px] md:w-[220px] md:-rotate-2">
-            <TodayViewMockup />
-          </PhoneShell>
+          <div className="flex flex-col items-center md:items-end gap-6">
+            <PhoneShell className="w-[180px] md:w-[220px] md:-rotate-2">
+              <TodayViewMockup />
+            </PhoneShell>
+            <div className="hidden md:flex flex-col gap-2.5">
+              {['Morning. Sorted.', 'Everyone in the loop.', 'Less stress. More team.'].map((line) => (
+                <p key={line} className="text-[11px] text-caldelo-muted flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-caldelo-green flex-shrink-0" />
+                  {line}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
 
       </div>

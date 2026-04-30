@@ -29,7 +29,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="bg-caldelo-white border-t border-caldelo-border py-24 px-5 md:py-32">
+    <section id="how-it-works" className="bg-caldelo-white border-t border-caldelo-border py-24 px-5 md:py-32">
       <div className="max-w-5xl mx-auto">
         <p className="text-[10px] font-bold tracking-widest uppercase text-caldelo-muted mb-12">
           How it works

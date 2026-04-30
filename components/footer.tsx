@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="bg-caldelo-ink py-6 px-5">
+    <footer className="bg-[#1c1917] py-6 px-5">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         <span className="font-display font-bold text-caldelo-white text-base tracking-tight">
           Caldelo

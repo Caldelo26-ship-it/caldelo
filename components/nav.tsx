@@ -5,6 +5,14 @@ export function Nav() {
         <span className="font-display font-bold text-lg text-caldelo-ink tracking-tight">
           Caldelo
         </span>
+        <div className="hidden md:flex items-center gap-7">
+          <a href="#how-it-works" className="text-sm text-caldelo-secondary hover:text-caldelo-ink transition-colors">
+            How it works
+          </a>
+          <a href="#waitlist" className="text-sm text-caldelo-secondary hover:text-caldelo-ink transition-colors">
+            Pricing
+          </a>
+        </div>
         <a
           href="#waitlist"
           className="h-10 px-6 rounded-pill bg-caldelo-green text-white text-sm font-semibold flex items-center hover:opacity-90 transition-opacity"
