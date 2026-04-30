@@ -3,9 +3,14 @@ export function Footer() {
     <footer className="bg-[#1c1917] py-6 px-5">
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-6">
 
-        <span className="font-display font-bold text-caldelo-white text-base tracking-tight flex-shrink-0">
-          Caldelo
-        </span>
+        <div className="flex-shrink-0">
+          <span className="font-display font-bold text-caldelo-white text-base tracking-tight block">
+            Caldelo
+          </span>
+          <span className="text-caldelo-muted text-xs mt-0.5 block">
+            Run family life like a team.
+          </span>
+        </div>
 
         {/* Social icons */}
         <div className="flex items-center gap-5">

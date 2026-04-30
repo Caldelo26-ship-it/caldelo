@@ -1,7 +1,8 @@
 import { Nav } from '@/components/nav'
 import { Hero } from '@/components/hero'
-import { Problem } from '@/components/problem'
+import { CalendarSection } from '@/components/calendar-section'
 import { Features } from '@/components/features'
+import { Testimonials } from '@/components/testimonials'
 import { SecondCta } from '@/components/second-cta'
 import { Footer } from '@/components/footer'
 
@@ -11,8 +12,9 @@ export default function HomePage() {
       <Nav />
       <main>
         <Hero />
-        <Problem />
+        <CalendarSection />
         <Features />
+        <Testimonials />
         <SecondCta />
       </main>
       <Footer />

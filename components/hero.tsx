@@ -4,20 +4,32 @@ import { TodayViewMockup } from './today-view-mockup'
 
 export function Hero() {
   return (
-    <section id="waitlist" className="bg-caldelo-white py-24 px-5 md:py-36">
+    <section id="waitlist" className="bg-caldelo-white py-20 px-5 md:py-28">
       <div className="max-w-5xl mx-auto flex flex-col gap-12 md:flex-row md:items-center md:gap-16">
 
+        {/* Left: copy */}
         <div className="flex-1 min-w-0">
-          <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-caldelo-green mb-6">
-            Now in development
+          <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-caldelo-green bg-caldelo-green/10 rounded-full px-3 py-1 mb-6">
+            New: Calendar + Tasks + Shared Clarity
           </span>
-          <h1 className="font-display text-5xl md:text-6xl font-bold text-caldelo-ink leading-tight mb-6">
-            Run family life<br />like a team.
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-caldelo-ink leading-tight mb-6">
+            The family calendar that keeps everyone in sync.
           </h1>
-          <p className="text-caldelo-secondary text-base md:text-lg leading-relaxed mb-10 max-w-md">
-            Caldelo gives busy parents shared clarity — who&apos;s doing what, what&apos;s coming up,
-            and no more dropped balls.
-          </p>
+          <ul className="space-y-2 mb-8">
+            {[
+              'Join early families',
+              'Free at launch',
+              'No spam ever',
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-sm text-caldelo-secondary">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 text-caldelo-green">
+                  <circle cx="8" cy="8" r="8" fill="currentColor" fillOpacity="0.15" />
+                  <path d="M4.5 8.5l2 2 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
           <div className="mb-3">
             <WaitlistForm variant="hero" />
           </div>
@@ -26,61 +38,74 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Mobile: plain phone, no annotations */}
+        {/* Mobile: plain phone */}
         <div className="flex justify-center md:hidden flex-shrink-0">
           <PhoneShell className="w-[180px]">
             <TodayViewMockup />
           </PhoneShell>
         </div>
 
-        {/* Desktop: phone + floating handwritten annotations */}
-        <div className="hidden md:flex flex-shrink-0 items-center justify-end">
-          <div className="relative w-[380px] h-[440px]">
+        {/* Desktop: phone + 4 floating annotations */}
+        <div className="hidden md:flex flex-shrink-0 items-center justify-center">
+          <div className="relative w-[420px] h-[480px]">
 
-            {/* Phone */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2">
-              <PhoneShell className="w-[220px] -rotate-2">
+            {/* Phone centred */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <PhoneShell className="w-[200px] -rotate-1">
                 <TodayViewMockup />
               </PhoneShell>
             </div>
 
-            {/* Morning. Sorted. — upper left, arrow curves right-down to phone top */}
-            <div className="absolute left-0 top-8">
-              <p className="font-handwriting text-[15px] italic text-caldelo-secondary -rotate-2 whitespace-nowrap mb-1">
-                Morning. Sorted.
+            {/* Upper-left annotation */}
+            <div className="absolute left-0 top-10 max-w-[140px]">
+              <p className="font-handwriting text-[16px] text-caldelo-secondary leading-snug -rotate-2">
+                See the whole week at a glance
               </p>
-              <svg width="88" height="42" viewBox="0 0 88 42" fill="none"
-                className="stroke-caldelo-muted" strokeWidth="1.5"
+              <svg width="70" height="38" viewBox="0 0 70 38" fill="none"
+                className="stroke-caldelo-muted ml-8 mt-1" strokeWidth="1.4"
                 strokeLinecap="round" strokeLinejoin="round">
-                <path d="M 4 6 C 24 4 58 10 84 36" strokeDasharray="5 3" />
-                <path d="M 78 33 L 84 36 L 80 30" />
+                <path d="M 4 6 C 22 4 50 10 66 32" strokeDasharray="5 3" />
+                <path d="M 60 30 L 66 32 L 61 27" />
               </svg>
             </div>
 
-            {/* Everyone in the loop. — mid left, arrow curves right to phone centre */}
-            <div className="absolute left-0 top-1/2 -translate-y-5">
-              <p className="font-handwriting text-[15px] italic text-caldelo-secondary rotate-1 whitespace-nowrap mb-1">
+            {/* Upper-right annotation */}
+            <div className="absolute right-0 top-12 max-w-[130px] text-right">
+              <svg width="70" height="38" viewBox="0 0 70 38" fill="none"
+                className="stroke-caldelo-muted mr-4 mb-1 ml-auto" strokeWidth="1.4"
+                strokeLinecap="round" strokeLinejoin="round">
+                <path d="M 66 6 C 48 4 20 10 4 32" strokeDasharray="5 3" />
+                <path d="M 10 30 L 4 32 L 9 27" />
+              </svg>
+              <p className="font-handwriting text-[16px] text-caldelo-secondary leading-snug rotate-1">
                 Everyone in the loop.
               </p>
-              <svg width="96" height="28" viewBox="0 0 96 28" fill="none"
-                className="stroke-caldelo-muted" strokeWidth="1.5"
-                strokeLinecap="round" strokeLinejoin="round">
-                <path d="M 4 6 C 32 2 68 6 92 20" strokeDasharray="5 3" />
-                <path d="M 86 17 L 92 20 L 87 14" />
-              </svg>
             </div>
 
-            {/* Less stress. More team. — lower left, arrow curves right-up to phone bottom */}
-            <div className="absolute left-0 bottom-10">
-              <p className="font-handwriting text-[15px] italic text-caldelo-secondary -rotate-1 whitespace-nowrap mb-1">
-                Less stress. More team.
-              </p>
-              <svg width="90" height="46" viewBox="0 0 90 46" fill="none"
-                className="stroke-caldelo-muted" strokeWidth="1.5"
+            {/* Lower-left annotation */}
+            <div className="absolute left-0 bottom-12 max-w-[140px]">
+              <svg width="70" height="38" viewBox="0 0 70 38" fill="none"
+                className="stroke-caldelo-muted ml-8 mb-1" strokeWidth="1.4"
                 strokeLinecap="round" strokeLinejoin="round">
-                <path d="M 4 40 C 26 38 60 28 86 8" strokeDasharray="5 3" />
-                <path d="M 80 10 L 86 8 L 82 14" />
+                <path d="M 4 32 C 22 34 50 28 66 6" strokeDasharray="5 3" />
+                <path d="M 60 8 L 66 6 L 61 11" />
               </svg>
+              <p className="font-handwriting text-[16px] text-caldelo-secondary leading-snug rotate-1">
+                Never miss what matters
+              </p>
+            </div>
+
+            {/* Lower-right annotation */}
+            <div className="absolute right-0 bottom-14 max-w-[130px] text-right">
+              <svg width="70" height="38" viewBox="0 0 70 38" fill="none"
+                className="stroke-caldelo-muted mr-4 mb-1 ml-auto" strokeWidth="1.4"
+                strokeLinecap="round" strokeLinejoin="round">
+                <path d="M 66 32 C 48 34 20 28 4 6" strokeDasharray="5 3" />
+                <path d="M 10 8 L 4 6 L 9 11" />
+              </svg>
+              <p className="font-handwriting text-[16px] text-caldelo-secondary leading-snug -rotate-1">
+                Share the load, clearly
+              </p>
             </div>
 
           </div>
