@@ -147,12 +147,12 @@ export default function Step5Events({ data, onNext, onBack }: StepProps) {
               className={`rounded-card border p-4 transition-all ${
                 isExpanded
                   ? 'border-caldelo-green/30 bg-caldelo-tint col-span-2'
-                  : 'border-caldelo-border bg-white hover:border-caldelo-green/50 cursor-pointer'
+                  : 'border-caldelo-border bg-white hover:border-caldelo-green/50'
               }`}
             >
               <button
                 onClick={() => toggleExpanded(cat.id)}
-                className="flex items-center gap-2 w-full text-left mb-2"
+                className="flex items-center gap-2 w-full text-left mb-2 min-h-[44px]"
                 aria-expanded={isExpanded}
                 aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${cat.label}`}
               >
@@ -177,31 +177,34 @@ export default function Step5Events({ data, onNext, onBack }: StepProps) {
 
               {isExpanded && (
                 <div className="mt-1 space-y-0.5">
-                  {cat.items.map(item => (
-                    <button
-                      key={item.id}
-                      onClick={() => toggleItem(item.id)}
-                      className="flex items-center gap-3 w-full py-2 text-sm text-caldelo-ink hover:text-caldelo-green transition-colors text-left min-h-[44px]"
-                      aria-pressed={selectedEvents.includes(item.id)}
-                      aria-label={item.label}
-                    >
-                      <div
-                        className={`w-5 h-5 rounded-[4px] flex items-center justify-center flex-shrink-0 transition-colors ${
-                          selectedEvents.includes(item.id)
-                            ? 'bg-caldelo-green'
-                            : 'bg-white border border-caldelo-border'
-                        }`}
-                        aria-hidden="true"
+                  {cat.items.map(item => {
+                    const isItemSelected = selectedEvents.includes(item.id)
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => toggleItem(item.id)}
+                        className="flex items-center gap-3 w-full py-2 text-sm text-caldelo-ink hover:text-caldelo-green transition-colors text-left min-h-[44px]"
+                        aria-pressed={isItemSelected}
+                        aria-label={item.label}
                       >
-                        {selectedEvents.includes(item.id) && (
-                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                            <path d="M2 5l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        )}
-                      </div>
-                      {item.label}
-                    </button>
-                  ))}
+                        <div
+                          className={`w-5 h-5 rounded-[4px] flex items-center justify-center flex-shrink-0 transition-colors ${
+                            isItemSelected
+                              ? 'bg-caldelo-green'
+                              : 'bg-white border border-caldelo-border'
+                          }`}
+                          aria-hidden="true"
+                        >
+                          {isItemSelected && (
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                              <path d="M2 5l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          )}
+                        </div>
+                        {item.label}
+                      </button>
+                    )
+                  })}
                 </div>
               )}
             </div>
@@ -221,7 +224,6 @@ export default function Step5Events({ data, onNext, onBack }: StepProps) {
           onClick={handleNext}
           aria-label={selectedEvents.length > 0 ? 'Continue to next step' : 'Skip event selection and continue'}
           className="flex-1 h-[52px] rounded-pill bg-caldelo-green text-white text-base font-semibold hover:opacity-90 transition-opacity"
-          style={{ backgroundColor: '#4A7C59' }}
         >
           {selectedEvents.length > 0 ? 'Next →' : 'Skip for now →'}
         </button>

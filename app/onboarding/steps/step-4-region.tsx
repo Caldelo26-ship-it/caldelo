@@ -80,8 +80,8 @@ export default function Step4Region({ data, onNext, onBack }: StepProps) {
             >
               {isSelected && (
                 <span className="absolute top-2 right-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <circle cx="8" cy="8" r="8" fill="#4a7c59"/>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="text-caldelo-green">
+                    <circle cx="8" cy="8" r="8" fill="currentColor"/>
                     <path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </span>
@@ -109,7 +109,6 @@ export default function Step4Region({ data, onNext, onBack }: StepProps) {
           disabled={loading}
           aria-label="Continue to next step"
           className="flex-1 h-[52px] rounded-pill bg-caldelo-green text-white text-base font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
-          style={{ backgroundColor: '#4A7C59' }}
         >
           {loading ? 'Saving…' : 'Next →'}
         </button>
