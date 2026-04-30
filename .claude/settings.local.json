@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(find C:\\\\\\\\Users\\\\\\\\User\\\\\\\\Documents\\\\\\\\caldelo -maxdepth 1 -name \"tailwind*\" -o -name \"*.config.*\")",
+      "Bash(curl -s -X POST http://localhost:3000/api/waitlist -H 'Content-Type: application/json' -d '{\"email\":\"notanemail\"}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/waitlist -H 'Content-Type: application/json' -d '{\"email\":\"test2@example.com\"}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/waitlist -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\"}')",
+      "Bash(npx tsc *)",
+      "Bash(git push *)"
+    ]
+  }
+}

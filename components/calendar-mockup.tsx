@@ -1,100 +1,79 @@
-const DAYS = ['Mon 20', 'Tue 21', 'Wed 22', 'Thu 23', 'Fri 24', 'Sat 25', 'Sun 26']
+import { StatusBar } from './ui/status-bar'
 
-interface Event {
-  day: number
-  start: number
-  span: number
-  label: string
-  color: 'green' | 'blue' | 'purple' | 'amber' | 'coral'
-  short: string
-}
-
-const EVENTS: Event[] = [
-  { day: 0, start: 1, span: 1, label: 'School run', color: 'green', short: 'School run' },
-  { day: 1, start: 1, span: 1, label: 'School run', color: 'green', short: 'School run' },
-  { day: 2, start: 1, span: 1, label: 'School run', color: 'green', short: 'School run' },
-  { day: 3, start: 1, span: 1, label: 'School run', color: 'green', short: 'School run' },
-  { day: 4, start: 1, span: 1, label: 'School run', color: 'green', short: 'School run' },
-  { day: 1, start: 3, span: 2, label: 'Football practice', color: 'blue', short: 'Football' },
-  { day: 3, start: 2, span: 1, label: "Zara's ballet", color: 'purple', short: 'Ballet' },
-  { day: 2, start: 4, span: 1, label: "Dad's meeting", color: 'amber', short: 'Meeting' },
-  { day: 4, start: 3, span: 2, label: 'Swimming lesson', color: 'coral', short: 'Swimming' },
-  { day: 5, start: 2, span: 2, label: 'Park trip', color: 'amber', short: 'Park' },
+const DAYS = [
+  { short: 'M', num: '20' },
+  { short: 'T', num: '21', today: true },
+  { short: 'W', num: '22' },
+  { short: 'T', num: '23' },
+  { short: 'F', num: '24' },
+  { short: 'S', num: '25' },
+  { short: 'S', num: '26' },
 ]
 
-const COLOR_MAP = {
-  green:  { bg: 'bg-caldelo-green/20',  text: 'text-caldelo-green'  },
-  blue:   { bg: 'bg-caldelo-blue/20',   text: 'text-caldelo-blue'   },
-  purple: { bg: 'bg-purple-100',        text: 'text-purple-700'     },
-  amber:  { bg: 'bg-amber-100',         text: 'text-amber-700'      },
-  coral:  { bg: 'bg-caldelo-coral/20',  text: 'text-caldelo-coral'  },
-}
+const events = [
+  { day: 0, slot: 0, label: 'School run',   color: 'bg-caldelo-green/20 text-caldelo-green' },
+  { day: 1, slot: 0, label: 'School run',   color: 'bg-caldelo-green/20 text-caldelo-green' },
+  { day: 1, slot: 2, label: 'Football',     color: 'bg-caldelo-blue/20 text-caldelo-blue' },
+  { day: 2, slot: 0, label: 'School run',   color: 'bg-caldelo-green/20 text-caldelo-green' },
+  { day: 2, slot: 3, label: "Dad's mtg",    color: 'bg-amber-100 text-amber-700' },
+  { day: 3, slot: 1, label: 'Ballet',       color: 'bg-purple-100 text-purple-700' },
+  { day: 4, slot: 2, label: 'Swimming',     color: 'bg-caldelo-coral/20 text-caldelo-coral' },
+  { day: 5, slot: 1, label: 'Park trip',    color: 'bg-amber-100 text-amber-700' },
+  { day: 5, slot: 3, label: 'Family lunch', color: 'bg-caldelo-green/20 text-caldelo-green' },
+]
 
-const TIMES = ['8am', '10am', '12pm', '2pm', '4pm']
+const TIME_SLOTS = ['8am', '10am', '12pm', '2pm', '4pm']
 
 export function CalendarMockup() {
   return (
-    <div className="font-sans text-caldelo-ink text-[7px] select-none">
+    <div className="font-sans text-caldelo-ink h-full flex flex-col">
 
-      {/* Month header */}
-      <div className="bg-[#eef2ee] px-2.5 pt-2 pb-1.5 flex items-center justify-between mb-1">
-        <span className="text-[9px] font-bold">May 2025</span>
-        <div className="flex gap-1">
-          <div className="w-4 h-4 rounded bg-white border border-caldelo-border flex items-center justify-center text-[8px] text-caldelo-secondary">‹</div>
-          <div className="w-4 h-4 rounded bg-white border border-caldelo-border flex items-center justify-center text-[8px] text-caldelo-secondary">›</div>
+      <StatusBar bg="bg-[#eef2ee]" />
+
+      {/* Header */}
+      <div className="bg-[#eef2ee] px-4 pb-3 pt-1">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-[13px] font-bold">May 2025</p>
+          <div className="flex gap-1">
+            <div className="w-5 h-5 rounded-md bg-white border border-caldelo-border flex items-center justify-center text-[9px] text-caldelo-secondary">‹</div>
+            <div className="w-5 h-5 rounded-md bg-white border border-caldelo-border flex items-center justify-center text-[9px] text-caldelo-secondary">›</div>
+          </div>
+        </div>
+
+        {/* Day headers */}
+        <div className="grid grid-cols-7 gap-0.5">
+          {DAYS.map(({ short, num, today }) => (
+            <div key={num} className="flex flex-col items-center">
+              <span className="text-[7px] text-caldelo-muted font-medium mb-0.5">{short}</span>
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold ${
+                today ? 'bg-caldelo-green text-white' : 'text-caldelo-secondary'
+              }`}>
+                {num}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Day headers */}
-      <div className="grid grid-cols-7 gap-px bg-caldelo-border border border-caldelo-border rounded-t overflow-hidden mb-px">
-        {DAYS.map((d, i) => (
-          <div key={d}
-            className={`text-center py-1 text-[6px] font-semibold leading-tight ${
-              i === 1 ? 'bg-caldelo-green text-white' : 'bg-caldelo-surface text-caldelo-secondary'
-            }`}>
-            <div>{d.split(' ')[0]}</div>
-            <div className={`text-[8px] font-bold ${i === 1 ? 'text-white' : 'text-caldelo-ink'}`}>
-              {d.split(' ')[1]}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* All-day row */}
-      <div className="grid grid-cols-7 gap-px bg-caldelo-border border-x border-caldelo-border mb-px">
-        {DAYS.map((d, i) => (
-          <div key={d} className="bg-caldelo-white py-1 px-0.5 min-h-[12px]">
-            {i === 3 && (
-              <div className="rounded bg-amber-100 text-amber-700 text-[5px] font-medium px-0.5 py-px truncate">
-                Birthday
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
       {/* Time grid */}
-      <div className="border border-caldelo-border rounded-b overflow-hidden">
-        {TIMES.map((time, row) => (
-          <div key={time} className="grid grid-cols-7 gap-px bg-caldelo-border border-b border-caldelo-border last:border-b-0">
-            {/* Time label col */}
+      <div className="flex-1 bg-caldelo-white overflow-hidden px-2 py-2">
+        {TIME_SLOTS.map((time, row) => (
+          <div key={time} className="flex gap-0.5 mb-1">
+            {/* Time label */}
+            <div className="w-7 pt-0.5 flex-shrink-0">
+              <span className="text-[6px] text-caldelo-muted">{time}</span>
+            </div>
+            {/* Day columns */}
             {DAYS.map((_, col) => {
-              const event = EVENTS.find(e => e.day === col && e.start === row + 1)
-              const occupied = EVENTS.some(e => e.day === col && e.start < row + 1 && e.start + e.span > row + 1)
-
+              const ev = events.find(e => e.day === col && e.slot === row)
               return (
-                <div key={col} className="bg-caldelo-white relative" style={{ height: 22 }}>
-                  {col === 0 && (
-                    <span className="absolute -left-px top-0.5 text-[5px] text-caldelo-muted whitespace-nowrap" style={{ fontSize: 5 }}>
-                      {time}
-                    </span>
-                  )}
-                  {event && (
-                    <div
-                      className={`absolute inset-x-0.5 top-0.5 rounded text-[5px] font-medium px-0.5 py-px overflow-hidden ${COLOR_MAP[event.color].bg} ${COLOR_MAP[event.color].text}`}
-                      style={{ height: event.span * 22 - 4 }}>
-                      <div className="truncate leading-tight">{event.short}</div>
+                <div key={col} className="flex-1 h-[28px] rounded relative">
+                  {ev ? (
+                    <div className={`absolute inset-0 rounded text-[5.5px] font-semibold flex items-center px-1 ${ev.color}`}>
+                      <span className="truncate">{ev.label}</span>
                     </div>
+                  ) : (
+                    <div className="absolute inset-0 border-b border-caldelo-border/40" />
                   )}
                 </div>
               )
@@ -104,19 +83,20 @@ export function CalendarMockup() {
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-x-2 gap-y-0.5 mt-1.5 px-0.5">
-        {[
-          { label: 'You',       color: 'bg-caldelo-green'  },
-          { label: 'Jamie',     color: 'bg-caldelo-blue'   },
-          { label: 'Kids',      color: 'bg-purple-400'     },
-          { label: 'Events',    color: 'bg-amber-400'      },
-          { label: 'Reminders', color: 'bg-caldelo-coral'  },
-        ].map(({ label, color }) => (
-          <div key={label} className="flex items-center gap-0.5">
-            <div className={`w-1.5 h-1.5 rounded-full ${color}`} />
-            <span className="text-caldelo-muted" style={{ fontSize: 5 }}>{label}</span>
-          </div>
-        ))}
+      <div className="bg-caldelo-white border-t border-caldelo-border px-4 py-2">
+        <div className="flex flex-wrap gap-x-3 gap-y-1">
+          {[
+            { label: 'You',    dot: 'bg-caldelo-green'  },
+            { label: 'Jamie',  dot: 'bg-caldelo-blue'   },
+            { label: 'Kids',   dot: 'bg-purple-400'     },
+            { label: 'Events', dot: 'bg-amber-400'      },
+          ].map(({ label, dot }) => (
+            <div key={label} className="flex items-center gap-1">
+              <div className={`w-2 h-2 rounded-full ${dot}`} />
+              <span className="text-[6.5px] text-caldelo-muted">{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
     </div>
