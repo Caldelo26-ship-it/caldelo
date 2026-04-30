@@ -2,8 +2,11 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Step1HouseholdName from './steps/step-1-household'
+import Step2Partner from './steps/step-2-partner'
+import Step3Children from './steps/step-3-children'
 
-type OnboardingData = {
+export type OnboardingData = {
   householdId: string | null
   householdName: string
   partnerFirstName: string
@@ -12,6 +15,12 @@ type OnboardingData = {
   region: string
   selectedEvents: string[]
   ownership: Record<string, 'partner1' | 'partner2' | 'shared'>
+}
+
+export type StepProps = {
+  data: OnboardingData
+  onNext: (partial?: Partial<OnboardingData>) => void
+  onBack: () => void
 }
 
 const TOTAL_STEPS = 7
@@ -116,6 +125,19 @@ export default function OnboardingPage() {
   const animationClass =
     direction === 'forward' ? 'step-animate-forward' : 'step-animate-back'
 
+  function renderStep() {
+    switch (step) {
+      case 1:
+        return <Step1HouseholdName data={onboardingData} onNext={onNext} onBack={onBack} />
+      case 2:
+        return <Step2Partner data={onboardingData} onNext={onNext} onBack={onBack} />
+      case 3:
+        return <Step3Children data={onboardingData} onNext={onNext} onBack={onBack} />
+      default:
+        return <StepPlaceholder step={step} onNext={onNext} onBack={onBack} />
+    }
+  }
+
   return (
     <div className="max-w-[480px] w-full flex flex-col items-center">
       <Wordmark />
@@ -125,7 +147,7 @@ export default function OnboardingPage() {
         key={step}
         className={`${animationClass} w-full`}
       >
-        <StepPlaceholder step={step} onNext={onNext} onBack={onBack} />
+        {renderStep()}
       </div>
     </div>
   )
