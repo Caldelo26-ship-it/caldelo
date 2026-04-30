@@ -32,17 +32,16 @@ export default function SignInPage() {
     }
   }
 
-  async function handleGoogle() {
-    setStatus('loading')
+  const handleGoogleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/callback`,
       },
     })
+
     if (error) {
-      setErrorMessage(error.message)
-      setStatus('error')
+      console.error(error)
     }
   }
 
@@ -138,12 +137,12 @@ export default function SignInPage() {
       {/* Google */}
       <button
         type="button"
-        onClick={handleGoogle}
+        onClick={handleGoogleSignIn}
         disabled={status === 'loading'}
         className="w-full h-[52px] rounded-[10px] bg-white border border-caldelo-border flex items-center justify-center gap-3 text-caldelo-ink text-sm font-medium hover:bg-caldelo-surface transition-colors disabled:opacity-60"
       >
         <GoogleIcon />
-        Sign in with Google
+        Continue with Google
       </button>
 
       <p className="text-center text-[12px] text-caldelo-muted mt-8">
