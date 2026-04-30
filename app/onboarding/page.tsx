@@ -7,6 +7,8 @@ import Step2Partner from './steps/step-2-partner'
 import Step3Children from './steps/step-3-children'
 import Step4Region from './steps/step-4-region'
 import Step5Events from './steps/step-5-events'
+import Step6Ownership from './steps/step-6-ownership'
+import Step7Done from './steps/step-7-done'
 
 export type OnboardingData = {
   householdId: string | null
@@ -70,38 +72,6 @@ function ProgressDots({ current }: { current: number }) {
   )
 }
 
-function StepPlaceholder({
-  step,
-  onNext,
-  onBack,
-}: {
-  step: number
-  onNext: () => void
-  onBack: () => void
-}) {
-  return (
-    <div className="space-y-6">
-      <h2 className="font-display text-2xl font-bold text-caldelo-ink">Step {step}</h2>
-      <p className="text-caldelo-secondary">(Implementation coming in next tasks)</p>
-      <div className="flex gap-3">
-        {step > 1 && (
-          <button
-            onClick={onBack}
-            className="h-11 px-6 rounded-pill border border-caldelo-border text-caldelo-ink text-sm font-medium"
-          >
-            Back
-          </button>
-        )}
-        <button
-          onClick={onNext}
-          className="h-11 px-6 rounded-pill bg-caldelo-green text-white text-sm font-semibold flex-1"
-        >
-          {step === 7 ? 'Finish' : 'Next →'}
-        </button>
-      </div>
-    </div>
-  )
-}
 
 export default function OnboardingPage() {
   const router = useRouter()
@@ -139,8 +109,12 @@ export default function OnboardingPage() {
         return <Step4Region data={onboardingData} onNext={onNext} onBack={onBack} />
       case 5:
         return <Step5Events data={onboardingData} onNext={onNext} onBack={onBack} />
+      case 6:
+        return <Step6Ownership data={onboardingData} onNext={onNext} onBack={onBack} />
+      case 7:
+        return <Step7Done data={onboardingData} onNext={onNext} onBack={onBack} />
       default:
-        return <StepPlaceholder step={step} onNext={onNext} onBack={onBack} />
+        return null
     }
   }
 
