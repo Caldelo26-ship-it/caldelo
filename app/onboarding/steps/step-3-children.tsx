@@ -103,6 +103,7 @@ export default function Step3Children({ data, onNext, onBack }: StepProps) {
             value={newName}
             onChange={e => setNewName(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') handleAdd() }}
+            aria-label="Child's first name"
           />
           <button
             type="button"
@@ -118,7 +119,7 @@ export default function Step3Children({ data, onNext, onBack }: StepProps) {
           <ul className="space-y-2">
             {children.map((name, i) => (
               <li
-                key={i}
+                key={name}
                 className="flex items-center justify-between h-11 px-4 rounded-[10px] bg-caldelo-surface"
               >
                 <span className="text-caldelo-ink text-base">{name}</span>

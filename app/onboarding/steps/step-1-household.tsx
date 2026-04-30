@@ -82,6 +82,7 @@ export default function Step1HouseholdName({ data, onNext }: StepProps) {
           value={householdName}
           onChange={e => setHouseholdName(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') handleNext() }}
+          aria-label="Household name"
           autoFocus
         />
         {error && (

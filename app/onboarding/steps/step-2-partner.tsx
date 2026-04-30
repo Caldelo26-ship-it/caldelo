@@ -83,6 +83,7 @@ export default function Step2Partner({ data, onNext, onBack }: StepProps) {
           value={partnerName}
           onChange={e => setPartnerName(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') handleNext() }}
+          aria-label="Partner's first name"
           autoFocus
         />
 
