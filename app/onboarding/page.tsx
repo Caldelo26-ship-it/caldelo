@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import Step1HouseholdName from './steps/step-1-household'
 import Step2Partner from './steps/step-2-partner'
 import Step3Children from './steps/step-3-children'
+import Step4Region from './steps/step-4-region'
+import Step5Events from './steps/step-5-events'
 
 export type OnboardingData = {
   householdId: string | null
@@ -133,6 +135,10 @@ export default function OnboardingPage() {
         return <Step2Partner data={onboardingData} onNext={onNext} onBack={onBack} />
       case 3:
         return <Step3Children data={onboardingData} onNext={onNext} onBack={onBack} />
+      case 4:
+        return <Step4Region data={onboardingData} onNext={onNext} onBack={onBack} />
+      case 5:
+        return <Step5Events data={onboardingData} onNext={onNext} onBack={onBack} />
       default:
         return <StepPlaceholder step={step} onNext={onNext} onBack={onBack} />
     }
