@@ -40,3 +40,27 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.step-animate-forward {
+  animation-name: slideInFromRight;
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
+}
+
+.step-animate-back {
+  animation-name: slideInFromLeft;
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
+}

@@ -2,9 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/browser'
-
-const supabase = createClient()
 
 type OnboardingData = {
   householdId: string | null
@@ -45,7 +42,11 @@ function Wordmark() {
 
 function ProgressDots({ current }: { current: number }) {
   return (
-    <div className="flex items-center gap-2 mb-8">
+    <div
+      className="flex items-center gap-2 mb-8"
+      role="status"
+      aria-label={`Step ${current} of ${TOTAL_STEPS}`}
+    >
       {Array.from({ length: TOTAL_STEPS }, (_, i) => (
         <div
           key={i}
@@ -97,9 +98,6 @@ export default function OnboardingPage() {
   const [direction, setDirection] = useState<'forward' | 'back'>('forward')
   const [onboardingData, setOnboardingData] = useState<OnboardingData>(initialData)
 
-  // supabase is available at module level for future use
-  void supabase
-
   function onNext(partialData: Partial<OnboardingData> = {}) {
     setOnboardingData(prev => ({ ...prev, ...partialData }))
     setDirection('forward')
@@ -115,39 +113,20 @@ export default function OnboardingPage() {
     setStep(s => Math.max(1, s - 1))
   }
 
-  const animationName =
-    direction === 'forward' ? 'slideInFromRight' : 'slideInFromLeft'
+  const animationClass =
+    direction === 'forward' ? 'step-animate-forward' : 'step-animate-back'
 
   return (
-    <>
-      <style>{`
-        @keyframes slideInFromRight {
-          from { opacity: 0; transform: translateX(40px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInFromLeft {
-          from { opacity: 0; transform: translateX(-40px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        .step-animate {
-          animation-duration: 300ms;
-          animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          animation-fill-mode: both;
-        }
-      `}</style>
+    <div className="max-w-[480px] w-full flex flex-col items-center">
+      <Wordmark />
+      <ProgressDots current={step} />
 
-      <div className="max-w-[480px] w-full flex flex-col items-center">
-        <Wordmark />
-        <ProgressDots current={step} />
-
-        <div
-          key={step}
-          className="step-animate w-full"
-          style={{ animationName }}
-        >
-          <StepPlaceholder step={step} onNext={onNext} onBack={onBack} />
-        </div>
+      <div
+        key={step}
+        className={`${animationClass} w-full`}
+      >
+        <StepPlaceholder step={step} onNext={onNext} onBack={onBack} />
       </div>
-    </>
+    </div>
   )
 }
