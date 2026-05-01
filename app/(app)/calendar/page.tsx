@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { redirect } from 'next/navigation'
 import { getCurrentUser, getCurrentHousehold } from '@/lib/auth/helpers'
 import { getHouseholdMembers } from '@/lib/db/helpers'
