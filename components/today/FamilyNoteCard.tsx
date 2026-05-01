@@ -13,6 +13,12 @@ type FamilyNoteCardProps = {
 export function FamilyNoteCard({ householdId, date, initialContent }: FamilyNoteCardProps) {
   const [content, setContent] = useState(initialContent)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastLocalSaveRef = useRef<number>(0)
+  const dateRef = useRef(date)
+
+  useEffect(() => {
+    dateRef.current = date
+  }, [date])
 
   useEffect(() => {
     const supabase = createClient()
@@ -28,7 +34,10 @@ export function FamilyNoteCard({ householdId, date, initialContent }: FamilyNote
         },
         (payload) => {
           const record = payload.new as { content?: string }
-          if (typeof record.content === 'string') {
+          if (
+            typeof record.content === 'string' &&
+            Date.now() - lastLocalSaveRef.current > 1500
+          ) {
             setContent(record.content)
           }
         },
@@ -40,12 +49,19 @@ export function FamilyNoteCard({ householdId, date, initialContent }: FamilyNote
     }
   }, [householdId])
 
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current)
+    }
+  }, [])
+
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = e.target.value
     setContent(value)
+    lastLocalSaveRef.current = Date.now()
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => {
-      upsertDailyNoteAction(householdId, date, value)
+      upsertDailyNoteAction(householdId, dateRef.current, value)
     }, 1000)
   }
 
@@ -58,6 +74,7 @@ export function FamilyNoteCard({ householdId, date, initialContent }: FamilyNote
         value={content}
         onChange={handleChange}
         placeholder="Add a note for today..."
+        aria-label="Family note for today"
         rows={3}
         className="w-full resize-none text-sm text-caldelo-ink placeholder:text-caldelo-muted bg-transparent outline-none leading-relaxed"
       />
