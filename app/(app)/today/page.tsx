@@ -18,7 +18,8 @@ export default async function TodayPage() {
   const household = await getCurrentHousehold(user.id)
   if (!household) redirect('/onboarding')
 
-  const today = new Date().toISOString().split('T')[0]
+  const now = new Date()
+  const today = now.toISOString().split('T')[0]
 
   const [events, reminders, overdueTasks, members, schoolRuns, dailyNote] = await Promise.all([
     getEventsForToday(household.id),
@@ -31,7 +32,7 @@ export default async function TodayPage() {
 
   return (
     <TodayView
-      dateString={formatDateString(new Date())}
+      dateString={formatDateString(now)}
       householdName={household.name}
       householdId={household.id}
       members={members}
