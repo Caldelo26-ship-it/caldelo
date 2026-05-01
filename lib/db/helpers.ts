@@ -25,6 +25,7 @@ export type Task = {
   completed: boolean
   notes: string | null
   household_id: string
+  category: string | null
 }
 
 export type HouseholdMember = {
@@ -203,4 +204,34 @@ export async function assignDropoffPickup(
   const supabase = await createClient()
 
   await supabase.from('tasks').update({ owner_id: ownerId }).eq('id', taskId)
+}
+
+export type SchoolRunTasks = {
+  dropoff: Task | null
+  pickup: Task | null
+}
+
+/**
+ * Fetches today's school-run tasks for a household.
+ * Looks for tasks with category 'school-dropoff' or 'school-pickup' due today.
+ */
+export async function getSchoolRunTasks(householdId: string): Promise<SchoolRunTasks> {
+  const supabase = await createClient()
+  const today = getToday()
+
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('id,title,due_date,owner_id,completed,notes,household_id,category')
+    .eq('household_id', householdId)
+    .in('category', ['school-dropoff', 'school-pickup'])
+    .eq('due_date', today)
+    .eq('completed', false)
+
+  if (error) return { dropoff: null, pickup: null }
+
+  const tasks = (data ?? []) as Task[]
+  return {
+    dropoff: tasks.find((t) => t.category === 'school-dropoff') ?? null,
+    pickup: tasks.find((t) => t.category === 'school-pickup') ?? null,
+  }
 }
