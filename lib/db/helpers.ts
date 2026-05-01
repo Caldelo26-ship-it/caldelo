@@ -103,7 +103,7 @@ export async function getOverdueTasks(householdId: string): Promise<Task[]> {
 
   const { data, error } = await supabase
     .from('tasks')
-    .select('id,title,due_date,owner_id,completed,notes,household_id')
+    .select('id,title,due_date,owner_id,completed,notes,household_id,category')
     .eq('household_id', householdId)
     .eq('completed', false)
     .lt('due_date', today)
