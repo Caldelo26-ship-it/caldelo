@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { TodayHeader } from '@/components/today/TodayHeader'
 import { UrgentReminders } from '@/components/today/UrgentReminders'
@@ -53,6 +53,13 @@ export function TodayView({
   const router = useRouter()
   const [refreshing, setRefreshing] = useState(false)
   const touchStartY = useRef<number | null>(null)
+  const refreshTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current)
+    }
+  }, [])
 
   function handleTouchStart(e: React.TouchEvent) {
     if (window.scrollY === 0) {
@@ -60,14 +67,15 @@ export function TodayView({
     }
   }
 
-  async function handleTouchEnd(e: React.TouchEvent) {
+  function handleTouchEnd(e: React.TouchEvent) {
     if (touchStartY.current === null) return
     const delta = e.changedTouches[0].clientY - touchStartY.current
     touchStartY.current = null
     if (delta > PULL_THRESHOLD && !refreshing) {
       setRefreshing(true)
       router.refresh()
-      setTimeout(() => setRefreshing(false), 1000)
+      if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current)
+      refreshTimerRef.current = setTimeout(() => setRefreshing(false), 1000)
     }
   }
 
