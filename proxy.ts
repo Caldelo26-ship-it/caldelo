@@ -12,41 +12,45 @@ const PROTECTED_PREFIXES = [
 ]
 
 export async function proxy(request: NextRequest) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseKey) {
+    return NextResponse.next({ request })
+  }
+
   let response = NextResponse.next({ request })
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  try {
+    const supabase = createServerClient(supabaseUrl, supabaseKey, {
       cookies: {
         getAll() {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          // Write to request so downstream code sees refreshed tokens
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          // Rebuild response so the refreshed cookies reach the browser
           response = NextResponse.next({ request })
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options),
           )
         },
       },
-    },
-  )
+    })
 
-  // getUser() both validates and refreshes the session via cookies
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
-  const path = request.nextUrl.pathname
-  const isProtected = PROTECTED_PREFIXES.some((prefix) => path.startsWith(prefix))
+    const path = request.nextUrl.pathname
+    const isProtected = PROTECTED_PREFIXES.some((prefix) => path.startsWith(prefix))
 
-  if (isProtected && !user) {
-    const signIn = new URL('/signin', request.url)
-    signIn.searchParams.set('next', path)
-    return NextResponse.redirect(signIn)
+    if (isProtected && !user) {
+      const signIn = new URL('/signin', request.url)
+      signIn.searchParams.set('next', path)
+      return NextResponse.redirect(signIn)
+    }
+  } catch {
+    return NextResponse.next({ request })
   }
 
   return response
