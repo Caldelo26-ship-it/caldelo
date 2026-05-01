@@ -136,8 +136,9 @@ export function DropoffPickupCard({
           </button>
         ))}
         <button
+          type="button"
           onClick={() => handleReassign(null)}
-          className="w-full text-left py-3 text-sm text-caldelo-muted"
+          className="w-full text-left py-3 text-sm text-caldelo-muted min-h-[44px] flex items-center"
         >
           Unassigned
         </button>

@@ -1,7 +1,8 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { getCurrentUser } from '@/lib/auth/helpers'
+import { getCurrentUser, getCurrentHousehold } from '@/lib/auth/helpers'
+import { createClient } from '@/lib/supabase/server'
 import {
   dismissReminder,
   assignDropoffPickup,
@@ -10,13 +11,39 @@ import {
   upsertDailyNote,
 } from '@/lib/db/helpers'
 
-async function requireAuth(): Promise<void> {
+async function requireAuth(): Promise<{ householdId: string }> {
   const user = await getCurrentUser()
   if (!user) throw new Error('Unauthorized')
+  const household = await getCurrentHousehold(user.id)
+  if (!household) throw new Error('Unauthorized')
+  return { householdId: household.id }
+}
+
+async function verifyTaskOwnership(taskId: string, householdId: string): Promise<void> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('tasks')
+    .select('id')
+    .eq('id', taskId)
+    .eq('household_id', householdId)
+    .maybeSingle()
+  if (!data) throw new Error('Unauthorized')
+}
+
+async function verifyReminderOwnership(reminderId: string, householdId: string): Promise<void> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('reminders')
+    .select('id')
+    .eq('id', reminderId)
+    .eq('household_id', householdId)
+    .maybeSingle()
+  if (!data) throw new Error('Unauthorized')
 }
 
 export async function dismissReminderAction(id: string): Promise<void> {
-  await requireAuth()
+  const { householdId } = await requireAuth()
+  await verifyReminderOwnership(id, householdId)
   await dismissReminder(id)
   revalidatePath('/today')
 }
@@ -25,19 +52,22 @@ export async function assignDropoffPickupAction(
   taskId: string,
   ownerId: string | null,
 ): Promise<void> {
-  await requireAuth()
+  const { householdId } = await requireAuth()
+  await verifyTaskOwnership(taskId, householdId)
   await assignDropoffPickup(taskId, ownerId)
   revalidatePath('/today')
 }
 
 export async function markTaskCompleteAction(taskId: string): Promise<void> {
-  await requireAuth()
+  const { householdId } = await requireAuth()
+  await verifyTaskOwnership(taskId, householdId)
   await markTaskComplete(taskId)
   revalidatePath('/today')
 }
 
 export async function moveTaskToTodayAction(taskId: string): Promise<void> {
-  await requireAuth()
+  const { householdId } = await requireAuth()
+  await verifyTaskOwnership(taskId, householdId)
   await moveTaskToToday(taskId)
   revalidatePath('/today')
 }
@@ -47,7 +77,8 @@ export async function upsertDailyNoteAction(
   date: string,
   content: string,
 ): Promise<void> {
-  await requireAuth()
+  const { householdId: authHouseholdId } = await requireAuth()
+  if (householdId !== authHouseholdId) throw new Error('Unauthorized')
   await upsertDailyNote(householdId, date, content)
   // No revalidatePath — realtime handles the other partner's UI update
 }
