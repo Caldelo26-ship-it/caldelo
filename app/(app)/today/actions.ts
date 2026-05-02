@@ -101,7 +101,8 @@ export async function updateEventOwnerAction(
   const { householdId } = await requireAuth()
   await verifyEventOwnership(eventId, householdId)
   const supabase = await createClient()
-  await supabase.from('events').update({ owner_id: ownerId }).eq('id', eventId)
+  const { error } = await supabase.from('events').update({ owner_id: ownerId }).eq('id', eventId)
+  if (error) throw new Error('Failed to update event owner')
   revalidatePath('/today')
 }
 
@@ -113,17 +114,20 @@ export async function updateEventTimeAction(
   const { householdId } = await requireAuth()
   await verifyEventOwnership(eventId, householdId)
   const supabase = await createClient()
-  await supabase
+  const { error } = await supabase
     .from('events')
     .update({ starts_at: startsAt, ends_at: endsAt })
     .eq('id', eventId)
+  if (error) throw new Error('Failed to update event time')
   revalidatePath('/today')
 }
 
+// TODO: Replace with soft delete once undo/recovery UX is implemented
 export async function deleteEventAction(eventId: string): Promise<void> {
   const { householdId } = await requireAuth()
   await verifyEventOwnership(eventId, householdId)
   const supabase = await createClient()
-  await supabase.from('events').delete().eq('id', eventId)
+  const { error } = await supabase.from('events').delete().eq('id', eventId)
+  if (error) throw new Error('Failed to delete event')
   revalidatePath('/today')
 }

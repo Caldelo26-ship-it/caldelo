@@ -14,6 +14,8 @@ export function UrgentReminders({ reminders, onDismiss }: UrgentRemindersProps) 
 
   const visible = reminders.filter((r) => !dismissedIds.has(r.id))
 
+  if (reminders.length === 0) return null
+
   async function handleDismiss(id: string) {
     setDismissedIds((prev) => new Set(prev).add(id))
     setErrors((prev) => {
@@ -29,7 +31,7 @@ export function UrgentReminders({ reminders, onDismiss }: UrgentRemindersProps) 
         next.delete(id)
         return next
       })
-      setErrors((prev) => ({ ...prev, [id]: "Couldn't dismiss. Try again." }))
+      setErrors((prev) => ({ ...prev, [id]: "Something didn't save. Try again." }))
     }
   }
 

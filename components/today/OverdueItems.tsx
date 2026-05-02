@@ -22,6 +22,8 @@ export function OverdueItems({ tasks, onMarkDone, onMoveToToday }: OverdueItemsP
 
   const visible = tasks.filter((t) => !removedIds.has(t.id))
 
+  if (tasks.length === 0) return null
+
   function removeId(id: string) {
     setRemovedIds((prev) => new Set(prev).add(id))
     setErrors((prev) => {

@@ -127,9 +127,11 @@ export function TodayEventsList({ events, members }: TodayEventsListProps) {
 
   async function handleSaveTime() {
     if (!selectedEvent || !timeValue) return
+    const oldMs = new Date(selectedEvent.starts_at).getTime()
     const newStartsAt = applyTimeToDate(selectedEvent.starts_at, timeValue)
+    const deltaMs = new Date(newStartsAt).getTime() - oldMs
     const newEndsAt = selectedEvent.ends_at
-      ? applyTimeToDate(selectedEvent.ends_at, timeValue)
+      ? new Date(new Date(selectedEvent.ends_at).getTime() + deltaMs).toISOString()
       : null
     setEditingTime(false)
     setError(null)

@@ -84,8 +84,9 @@ export function DropoffPickupCard({
 
   async function handleReassign(ownerId: string | null) {
     if (!activeTask) return
-    const prev = sheetOpen === 'dropoff' ? dropoffOwnerId : pickupOwnerId
-    if (sheetOpen === 'dropoff') {
+    const slot = sheetOpen
+    const prev = slot === 'dropoff' ? dropoffOwnerId : pickupOwnerId
+    if (slot === 'dropoff') {
       setDropoffOwnerId(ownerId)
     } else {
       setPickupOwnerId(ownerId)
@@ -95,7 +96,7 @@ export function DropoffPickupCard({
     try {
       await onReassign(activeTask.id, ownerId)
     } catch {
-      if (sheetOpen === 'dropoff') {
+      if (slot === 'dropoff') {
         setDropoffOwnerId(prev)
       } else {
         setPickupOwnerId(prev)
