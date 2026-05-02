@@ -36,7 +36,8 @@ type SlotProps = {
 function Slot({ label, task, ownerId, members, onTap }: SlotProps) {
   const owner = ownerId != null ? members.find((m) => m.id === ownerId) : null
   const memberIndex = owner ? members.indexOf(owner) : -1
-  const colorClass = memberIndex >= 0 ? (AVATAR_COLORS[memberIndex] ?? 'bg-caldelo-muted') : 'bg-caldelo-muted'
+  const colorClass =
+    memberIndex >= 0 ? (AVATAR_COLORS[memberIndex] ?? 'bg-caldelo-muted') : 'bg-caldelo-muted'
 
   const assigned = task !== null && ownerId !== null && owner !== null
 
@@ -45,9 +46,7 @@ function Slot({ label, task, ownerId, members, onTap }: SlotProps) {
       type="button"
       onClick={onTap}
       className={`rounded-[10px] p-3 min-h-[80px] flex flex-col justify-between text-left w-full ${
-        assigned
-          ? 'bg-caldelo-surface'
-          : 'bg-amber-50 border border-amber-200'
+        assigned ? 'bg-caldelo-surface' : 'bg-amber-50 border border-amber-200'
       }`}
     >
       <span className="text-xs text-caldelo-muted">{label}</span>
@@ -70,27 +69,39 @@ export function DropoffPickupCard({
   onReassign,
 }: DropoffPickupCardProps) {
   const [sheetOpen, setSheetOpen] = useState<SlotKey | null>(null)
-
-  // Local optimistic owner IDs
   const [dropoffOwnerId, setDropoffOwnerId] = useState<string | null>(
     dropoffTask?.owner_id ?? null,
   )
   const [pickupOwnerId, setPickupOwnerId] = useState<string | null>(
     pickupTask?.owner_id ?? null,
   )
+  const [error, setError] = useState<string | null>(null)
 
-  const activeTask = sheetOpen === 'dropoff' ? dropoffTask : sheetOpen === 'pickup' ? pickupTask : null
+  const activeTask =
+    sheetOpen === 'dropoff' ? dropoffTask : sheetOpen === 'pickup' ? pickupTask : null
+  const activeOwnerId = sheetOpen === 'dropoff' ? dropoffOwnerId : pickupOwnerId
   const sheetTitle = sheetOpen === 'dropoff' ? 'Assign Drop-off' : 'Assign Pick-up'
 
   async function handleReassign(ownerId: string | null) {
     if (!activeTask) return
+    const prev = sheetOpen === 'dropoff' ? dropoffOwnerId : pickupOwnerId
     if (sheetOpen === 'dropoff') {
       setDropoffOwnerId(ownerId)
     } else {
       setPickupOwnerId(ownerId)
     }
     setSheetOpen(null)
-    await onReassign(activeTask.id, ownerId)
+    setError(null)
+    try {
+      await onReassign(activeTask.id, ownerId)
+    } catch {
+      if (sheetOpen === 'dropoff') {
+        setDropoffOwnerId(prev)
+      } else {
+        setPickupOwnerId(prev)
+      }
+      setError("Something didn't save. Try again.")
+    }
   }
 
   return (
@@ -105,16 +116,23 @@ export function DropoffPickupCard({
             task={dropoffTask}
             ownerId={dropoffOwnerId}
             members={members}
-            onTap={() => setSheetOpen('dropoff')}
+            onTap={() => {
+              setError(null)
+              setSheetOpen('dropoff')
+            }}
           />
           <Slot
             label="Pick-up"
             task={pickupTask}
             ownerId={pickupOwnerId}
             members={members}
-            onTap={() => setSheetOpen('pickup')}
+            onTap={() => {
+              setError(null)
+              setSheetOpen('pickup')
+            }}
           />
         </div>
+        {error && <p className="text-xs text-red-600 mt-2">{error}</p>}
       </div>
 
       <BottomSheet
@@ -122,23 +140,40 @@ export function DropoffPickupCard({
         onClose={() => setSheetOpen(null)}
         title={sheetTitle}
       >
-        {members.map((m, i) => (
-          <button
-            key={m.id}
-            onClick={() => handleReassign(m.id)}
-            className="w-full flex items-center gap-3 py-3 border-b border-caldelo-border last:border-0"
-          >
-            <Avatar
-              name={m.first_name}
-              colorClass={AVATAR_COLORS[i] ?? 'bg-caldelo-muted'}
-            />
-            <span className="text-sm font-medium text-caldelo-ink">{m.first_name}</span>
-          </button>
-        ))}
+        {members.map((m, i) => {
+          const color = AVATAR_COLORS[i] ?? 'bg-caldelo-muted'
+          const isSelected = activeOwnerId === m.id
+          return (
+            <button
+              key={m.id}
+              type="button"
+              onClick={() => handleReassign(m.id)}
+              className="w-full flex items-center gap-3 py-4 border-b border-caldelo-border last:border-0 min-h-[72px]"
+            >
+              <div className="relative flex-shrink-0">
+                <Avatar name={m.first_name} colorClass={color} />
+                {isSelected && (
+                  <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-caldelo-green rounded-full flex items-center justify-center">
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                      <path
+                        d="M1.5 4l2 2 3-3"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                )}
+              </div>
+              <span className="text-sm font-medium text-caldelo-ink">{m.first_name}</span>
+            </button>
+          )
+        })}
         <button
           type="button"
           onClick={() => handleReassign(null)}
-          className="w-full text-left py-3 text-sm text-caldelo-muted min-h-[44px] flex items-center"
+          className="w-full text-left py-4 text-sm text-caldelo-muted min-h-[72px] flex items-center"
         >
           Unassigned
         </button>

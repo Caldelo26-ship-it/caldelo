@@ -10,14 +10,35 @@ type UrgentRemindersProps = {
 
 export function UrgentReminders({ reminders, onDismiss }: UrgentRemindersProps) {
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set())
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   const visible = reminders.filter((r) => !dismissedIds.has(r.id))
 
-  if (visible.length === 0) return null
-
   async function handleDismiss(id: string) {
     setDismissedIds((prev) => new Set(prev).add(id))
-    await onDismiss(id)
+    setErrors((prev) => {
+      const next = { ...prev }
+      delete next[id]
+      return next
+    })
+    try {
+      await onDismiss(id)
+    } catch {
+      setDismissedIds((prev) => {
+        const next = new Set(prev)
+        next.delete(id)
+        return next
+      })
+      setErrors((prev) => ({ ...prev, [id]: "Couldn't dismiss. Try again." }))
+    }
+  }
+
+  if (visible.length === 0) {
+    return (
+      <div className="mx-4 mb-3 px-4 py-3">
+        <p className="text-sm text-caldelo-muted">No reminders today.</p>
+      </div>
+    )
   }
 
   return (
@@ -41,16 +62,21 @@ export function UrgentReminders({ reminders, onDismiss }: UrgentRemindersProps) 
       </div>
 
       {visible.map((reminder) => (
-        <div key={reminder.id} className="flex items-center justify-between py-2">
-          <span className="text-sm text-amber-900">{reminder.title}</span>
-          <button
-            type="button"
-            aria-label="Dismiss reminder"
-            onClick={() => handleDismiss(reminder.id)}
-            className="text-amber-600 text-xs underline ml-4 flex-shrink-0 min-h-[44px] flex items-center"
-          >
-            Dismiss
-          </button>
+        <div key={reminder.id} className="flex flex-col py-2">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-amber-900">{reminder.title}</span>
+            <button
+              type="button"
+              aria-label="Dismiss reminder"
+              onClick={() => handleDismiss(reminder.id)}
+              className="text-amber-600 text-xs underline ml-4 flex-shrink-0 min-h-[44px] flex items-center"
+            >
+              Dismiss
+            </button>
+          </div>
+          {errors[reminder.id] && (
+            <p className="text-xs text-red-600 mt-0.5">{errors[reminder.id]}</p>
+          )}
         </div>
       ))}
     </div>

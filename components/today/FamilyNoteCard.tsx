@@ -12,7 +12,9 @@ type FamilyNoteCardProps = {
 
 export function FamilyNoteCard({ householdId, date, initialContent }: FamilyNoteCardProps) {
   const [content, setContent] = useState(initialContent)
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastLocalSaveRef = useRef<number>(0)
   const dateRef = useRef(date)
 
@@ -52,24 +54,41 @@ export function FamilyNoteCard({ householdId, date, initialContent }: FamilyNote
   useEffect(() => {
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current)
+      if (savedTimerRef.current) clearTimeout(savedTimerRef.current)
     }
   }, [])
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = e.target.value
     setContent(value)
+    setSaveStatus('idle')
     lastLocalSaveRef.current = Date.now()
     if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => {
-      upsertDailyNoteAction(householdId, dateRef.current, value)
+    debounceRef.current = setTimeout(async () => {
+      try {
+        await upsertDailyNoteAction(householdId, dateRef.current, value)
+        setSaveStatus('saved')
+        if (savedTimerRef.current) clearTimeout(savedTimerRef.current)
+        savedTimerRef.current = setTimeout(() => setSaveStatus('idle'), 2000)
+      } catch {
+        setSaveStatus('error')
+      }
     }, 1000)
   }
 
   return (
     <div className="bg-white rounded-card shadow-sm mx-4 mb-3 p-4">
-      <p className="text-xs font-semibold text-caldelo-muted uppercase tracking-wide mb-3">
-        Family note
-      </p>
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-xs font-semibold text-caldelo-muted uppercase tracking-wide">
+          Family note
+        </p>
+        {saveStatus === 'saved' && (
+          <span className="text-xs text-caldelo-green">Saved</span>
+        )}
+        {saveStatus === 'error' && (
+          <span className="text-xs text-red-600">Something didn&apos;t save. Try again.</span>
+        )}
+      </div>
       <textarea
         value={content}
         onChange={handleChange}

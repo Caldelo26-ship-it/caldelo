@@ -82,3 +82,48 @@ export async function upsertDailyNoteAction(
   await upsertDailyNote(householdId, date, content)
   // No revalidatePath — realtime handles the other partner's UI update
 }
+
+async function verifyEventOwnership(eventId: string, householdId: string): Promise<void> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('events')
+    .select('id')
+    .eq('id', eventId)
+    .eq('household_id', householdId)
+    .maybeSingle()
+  if (!data) throw new Error('Unauthorized')
+}
+
+export async function updateEventOwnerAction(
+  eventId: string,
+  ownerId: string | null,
+): Promise<void> {
+  const { householdId } = await requireAuth()
+  await verifyEventOwnership(eventId, householdId)
+  const supabase = await createClient()
+  await supabase.from('events').update({ owner_id: ownerId }).eq('id', eventId)
+  revalidatePath('/today')
+}
+
+export async function updateEventTimeAction(
+  eventId: string,
+  startsAt: string,
+  endsAt: string | null,
+): Promise<void> {
+  const { householdId } = await requireAuth()
+  await verifyEventOwnership(eventId, householdId)
+  const supabase = await createClient()
+  await supabase
+    .from('events')
+    .update({ starts_at: startsAt, ends_at: endsAt })
+    .eq('id', eventId)
+  revalidatePath('/today')
+}
+
+export async function deleteEventAction(eventId: string): Promise<void> {
+  const { householdId } = await requireAuth()
+  await verifyEventOwnership(eventId, householdId)
+  const supabase = await createClient()
+  await supabase.from('events').delete().eq('id', eventId)
+  revalidatePath('/today')
+}
