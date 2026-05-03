@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/browser'
 import type { StepProps } from '../page'
+import { saveHouseholdName } from '../actions'
 
 export default function Step1HouseholdName({ data, onNext }: StepProps) {
   const [householdName, setHouseholdName] = useState(data.householdName)
@@ -20,34 +20,12 @@ export default function Step1HouseholdName({ data, onNext }: StepProps) {
     setLoading(true)
 
     try {
-      const supabase = createClient()
-      const { data: userData, error: userError } = await supabase.auth.getUser()
-      if (userError || !userData.user) {
-        setError('Could not verify your account. Please refresh and try again.')
-        return
-      }
-
-      const userId = userData.user.id
-
-      const { data: row, error: dbError } = data.householdId
-        ? await supabase
-            .from('households')
-            .update({ name: trimmed })
-            .eq('id', data.householdId)
-            .select('id')
-            .single()
-        : await supabase
-            .from('households')
-            .insert({ user_id: userId, name: trimmed })
-            .select('id')
-            .single()
-
-      if (dbError || !row) {
+      const result = await saveHouseholdName(trimmed, data.householdId)
+      if ('error' in result) {
         setError('Failed to save your household. Please try again.')
         return
       }
-
-      onNext({ householdName: trimmed, householdId: row.id as string })
+      onNext({ householdName: trimmed, householdId: result.id })
     } catch {
       setError('Something went wrong. Please try again.')
     } finally {
