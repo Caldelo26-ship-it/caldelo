@@ -8,6 +8,7 @@ import { useCalendarEvents } from './useCalendarEvents'
 const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 const OWNER_COLORS = ['#4A7C59', '#5C7A9E', '#C27B6A']
 const TODAY_GREEN = '#4A7C59'
+const HOLIDAY_TINT = '#fef9ee'
 
 function toLocalDateStr(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
@@ -65,11 +66,13 @@ export function WeekView({ weekStart, householdId, members }: WeekViewProps) {
           const dateKey = toLocalDateStr(day)
           const dayEvents = events[dateKey] ?? []
           const today = isToday(day)
+          const isHoliday = dayEvents.some((e) => e.category === 'holidays-travel')
 
           return (
             <div
               key={i}
               className="flex-1 min-w-0 border-r border-caldelo-border last:border-r-0"
+              style={{ backgroundColor: isHoliday && !today ? HOLIDAY_TINT : undefined }}
             >
               {/* Column header */}
               <div className="flex flex-col items-center pt-2 pb-2 border-b border-caldelo-border">
